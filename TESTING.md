@@ -193,6 +193,13 @@ numbers, and the share an automation takes over is always an estimate.
 The scripts were run on Python 3.9 and 3.14 on macOS. `bash build.sh --check` passes. Every automatebasics.com
 address in the skills answered 200 on 12 November 2026.
 
+## Install commands
+
+The Claude Code install lines in the README were run against GitHub on the day the repository was published:
+the single-skill line produced `inbox/SKILL.md` and `inbox/scripts/mail.py`; the all-skills line produced the
+five folders, and two scripts ran from the installed copy. The five zip links each downloaded a valid zip
+identical to the one in `dist/`.
+
 ## Not tested
 
 - **The rewritten instructions, end to end.** After the fixes above, each script was re-run on its test input,
@@ -204,6 +211,5 @@ address in the skills answered 200 on 12 November 2026.
   the skill name, only the allowed front-matter keys, under the description limit), but none was uploaded.
 - **The scripts inside the Claude apps' code sandbox**, where network access is off unless the user allows it
   (this matters only for `check --links`).
-- **The install commands in the README.** They point at a repository that did not exist when this was written.
 - **Large inputs**: more than 200 emails, more than 60 rows, a meeting longer than five minutes.
 - **Windows.**
