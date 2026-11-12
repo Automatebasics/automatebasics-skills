@@ -2,7 +2,7 @@
 """Read a pile of email into one numbered list, then check that every message was sorted exactly once.
 
     python3 mail.py read export.mbox [more files or folders] [--me you@work.example] [--since 2026-11-01]
-                                     [--max 200] [--chars 900] [--out inbox.json]
+                                     [--max 200] [--chars 1500] [--out inbox.json]
     python3 mail.py report inbox.json labels.json
 
 `read` takes: a .mbox file (Gmail Takeout, Apple Mail's exported .mbox folder), .eml files or a folder of
@@ -38,7 +38,10 @@ LABELS = ["reply today", "needs your eyes", "reply this week", "read, no reply n
 MACHINE = re.compile(r"^(no[-_.]?reply|do[-_.]?not[-_.]?reply|notifications?|newsletter|news|mailer-daemon|bounce|"
                      r"updates?|alerts?|digest|marketing|promo|billing|receipts?|invoice|automated|system|calendar)\b", re.I)
 CUT = [re.compile(p, re.I | re.M) for p in (
-    r"^\s*-{2,}\s*Original Message\s*-{2,}", r"^\s*(?:_{10,}\s*\n\s*)?From: .+\n\s*(Sent|Date): .+")]
+    r"^\s*-{2,}\s*(Original Message|Message d'origine|Ursprüngliche Nachricht|Mensaje original)\s*-{2,}",
+    r"^\s*(?:_{10,}\s*\n\s*)?(From|De|Von|Da)\s?: .+\n\s*(Sent|Date|Envoyé|Gesendet|Enviado|Inviato)\s?: .+")]
+MOBILE = re.compile(r"^\s*(Sent from my \w+.*|Get Outlook for \w+.*|Envoyé de mon \w+.*)$", re.I | re.M)
+TAG = re.compile(r"^\s*(\[[^\]]{1,20}\]\s*)+")
 WROTE = re.compile(r"^\s*(?:On|Le|Am|El) .{5,200}?(?:\n.{0,100})?(?:wrote|a écrit|schrieb|escribió)\s*:\s*$", re.I | re.M)
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -76,12 +79,22 @@ def html_text(s):
     return html.unescape("".join(p.out))
 
 
-def new_text(body):
+def new_text(body, forward=False):
     """What the sender wrote this time: no quoted thread. Forwarded text is kept. -> (text, signature)"""
-    body = body.replace("\r\n", "\n").replace("\r", "\n")
+    body = body.replace("\r\n", "\n").replace("\r", "\n").replace("\xa0", " ")
     body = re.sub(r"^>(>*From )", r"\1", body, flags=re.M)             # mbox files escape lines that start with "From "
-    body = "\n".join(l for l in body.split("\n") if not l.lstrip().startswith(">"))
+    m = re.search(r"^\s*Begin forwarded message:\s*$", body, re.M)    # Apple Mail quotes the forwarded email with ">"
+    if m:
+        body = body[:m.start()] + "[Forwarded message:]\n" + re.sub(r"^\s*> ?", "", body[m.end():], flags=re.M)
     body = re.sub(r"^\s*-{2,}\s*Forwarded message\s*-{2,}\s*$", "[Forwarded message:]", body, flags=re.I | re.M)
+    if forward and "[Forwarded message:]" not in body:                 # Outlook forwards: the From/Sent block is the forward
+        m = CUT[1].search(body)
+        if m:
+            body = body[:m.start()] + "[Forwarded message:]\n" + body[m.start():].lstrip("_ \n")
+    fwd0 = body.find("[Forwarded message:]")
+    head0, tail0 = (body, "") if fwd0 < 0 else (body[:fwd0], body[fwd0:])
+    body = "\n".join(l for l in head0.split("\n") if not l.lstrip().startswith(">")) + tail0
+    body = MOBILE.sub("", body)
     fwd = body.find("[Forwarded message:]")
     head, tail = (body, "") if fwd < 0 else (body[:fwd], body[fwd:])
     head = WROTE.sub("", head)                                          # the "On ... wrote:" line above a quote
@@ -101,7 +114,10 @@ def when_of(raw):
     try:
         d = email.utils.parsedate_to_datetime(raw)
         ts = d.timestamp() if d.tzinfo else d.replace(tzinfo=datetime.timezone.utc).timestamp()
-        return f"{DAYS[d.weekday()]} {d.strftime('%Y-%m-%d %H:%M')}", ts
+        off = d.utcoffset() if d.tzinfo else None
+        zone = "" if off is None or off == datetime.timedelta(0) else " (sender's time, UTC" + ("+" if off >= datetime.timedelta(0) else "-") + \
+            f"{abs(int(off.total_seconds())) // 3600}" + (f":{abs(int(off.total_seconds())) % 3600 // 60:02d}" if off.total_seconds() % 3600 else "") + ")"
+        return f"{DAYS[d.weekday()]} {d.strftime('%Y-%m-%d %H:%M')}{zone}", ts
     except Exception:
         m = re.search(r"(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?", raw or "")
         if m:
@@ -110,13 +126,15 @@ def when_of(raw):
         return (raw or "")[:25].strip(), None
 
 
-def record(name, addr, to, cc, subject, date_raw, body, files=(), machine=False, labels=""):
-    text, sig = new_text(body)
+def record(name, addr, to, cc, subject, date_raw, body, files=(), machine=False, labels="", msgid="", refs=()):
+    fwd = bool(re.match(r"\s*(\[[^\]]*\]\s*)*(fwd?|fw|tr|wg)\s*:", subject or "", re.I))
+    text, sig = new_text(body, fwd)
     shown, ts = when_of(date_raw)
-    topic = re.sub(r"^\s*((re|aw|sv|fwd?|fw|tr)\s*:\s*)+", "", subject or "", flags=re.I).strip().lower()
+    topic = re.sub(r"^\s*((re|aw|sv|fwd?|fw|tr|wg)\s*:\s*|\[[^\]]{1,20}\]\s*)+", "", subject or "", flags=re.I).strip().lower()
     return {"date": shown, "ts": ts, "from_name": name, "from": (addr or "").lower(), "to": to, "cc": cc,
             "subject": subject or "", "body": text, "signature": sig, "files": list(files), "labels": labels,
-            "machine": bool(machine or (addr and MACHINE.search(addr.split("@")[0]))), "topic": topic}
+            "machine": bool(machine or (addr and MACHINE.search(addr.split("@")[0]))), "topic": topic,
+            "msgid": msgid.strip(), "refs": [r for r in refs if r]}
 
 
 def one(msg):
@@ -149,7 +167,8 @@ def one(msg):
                    or (h("Auto-Submitted") and h("Auto-Submitted").lower() != "no"))
     return record(name, addr, [a.lower() for _, a in email.utils.getaddresses([h("To")]) if a],
                   [a.lower() for _, a in email.utils.getaddresses([h("Cc")]) if a], h("Subject"), h("Date"),
-                  text if text.strip() else html_text(htmlpart), files, machine, h("X-Gmail-Labels"))
+                  text if text.strip() else html_text(htmlpart), files, machine, h("X-Gmail-Labels"),
+                  h("Message-ID"), re.findall(r"<[^>]+>", h("In-Reply-To") + " " + h("References")))
 
 
 def from_bytes(raw):
@@ -279,10 +298,21 @@ def gather(paths):
 
 def cmd_read(a):
     msgs, notes = gather(a.paths)
-    me = a.me.lower() if a.me else ""
-    junk = [m for m in msgs if re.search(r"\b(spam|trash|bin|drafts?)\b", m["labels"], re.I)]
+    mes = {x.strip().lower() for x in (a.me or "").split(",") if x.strip()}
+    me = next(iter(sorted(mes)), "")
+    seen_ids, dupes = set(), 0
+    kept = []
+    for m in msgs:
+        if m["msgid"] and m["msgid"] in seen_ids:
+            dupes += 1
+            continue
+        seen_ids.add(m["msgid"])
+        kept.append(m)
+    msgs = kept
+    labels_of = lambda m: {x.strip().lower() for x in m["labels"].split(",") if x.strip()}
+    junk = [m for m in msgs if labels_of(m) & {"spam", "trash", "bin", "draft", "drafts", "[gmail]/spam", "[gmail]/trash"}]
     msgs = [m for m in msgs if m not in junk]
-    mine = [m for m in msgs if me and m["from"] == me]
+    mine = [m for m in msgs if (mes and m["from"] in mes) or ("sent" in labels_of(m) and "inbox" not in labels_of(m))]
     msgs = [m for m in msgs if m not in mine]
     old = []
     if a.since:
@@ -297,15 +327,22 @@ def cmd_read(a):
     for i, m in enumerate(msgs, 1):
         m["id"] = i
         m["words"] = len(m["body"].split())
-        m["cc_only"] = bool(me) and me not in m["to"] and me in m["cc"]
-    threads = {}
+        m["cc_only"] = bool(mes) and not (mes & set(m["to"])) and bool(mes & set(m["cc"]))
+        m["not_to_you"] = bool(mes) and not (mes & set(m["to"] + m["cc"])) and bool(m["to"])
+    people = lambda x: {x["from"], *x["to"], *x["cc"]} - mes - {""}
+    by_id = {m["msgid"]: m for m in msgs + mine if m["msgid"]}
+
+    def linked(x, y):
+        """Same conversation: the reply headers say so, or (when there are none) same subject and a person in common."""
+        if x["msgid"] and (x["msgid"] in y["refs"]) or y["msgid"] and (y["msgid"] in x["refs"]):
+            return True
+        if x["refs"] and y["refs"] and set(x["refs"]) & set(y["refs"]):
+            return True
+        return bool(x["topic"]) and x["topic"] == y["topic"] and bool(people(x) & people(y))
     for m in msgs:
-        if m["topic"]:
-            threads.setdefault(m["topic"], []).append(m)
-    for m in msgs:
-        group = threads.get(m["topic"], []) if m["topic"] else []
-        m["same_conversation"] = sorted(x["id"] for x in group if x is not m)
-        later = [x for x in mine if x["topic"] and x["topic"] == m["topic"] and x["ts"] and m["ts"] and x["ts"] > m["ts"]]
+        m["same_conversation"] = sorted(x["id"] for x in msgs if x is not m and linked(m, x))
+        later = [x for x in mine if x["ts"] and m["ts"] and x["ts"] > m["ts"] and
+                 ((m["msgid"] and m["msgid"] in x["refs"]) or (not x["refs"] and x["topic"] == m["topic"] and m["from"] in x["to"] + x["cc"]))]
         m["you_replied"] = max(later, key=lambda x: x["ts"])["date"] if later else ""
     dated = [m for m in msgs if m["ts"] is not None]
     days = sorted(m["date"][4:14] for m in dated)
@@ -315,11 +352,13 @@ def cmd_read(a):
     print(f"Read: {len(msgs)} emails" + (f", {span}" if span else "") + f"; {sum(m['machine'] for m in msgs)} look machine-sent. "
           f"Saved to {a.out} (a working file; it holds the full text of each email).")
     if mine:
-        print(f"{len(mine)} sent by {me} are not in the list; they are used only to see which emails already got a reply.")
-    elif not me:
+        print(f"{len(mine)} sent by the user are not in the list; they are used only to see which emails already got a reply.")
+    elif not mes:
         print("No --me address given, so mail the user sent is in the list like any other, and \"only copied\" cannot be told.")
+    if dupes:
+        print(f"{dupes} exact duplicate(s) (the same email twice in the export) were left out.")
     if junk:
-        print(f"{len(junk)} in Gmail's Spam, Trash or Drafts were left out.")
+        print(f"{len(junk)} in Gmail's Spam, Trash or Drafts were left out: " + "; ".join(f"\"{(m['subject'] or '(no subject)')[:50]}\" from {m['from'] or m['from_name']}" for m in junk[:10]))
     if old:
         print(f"{len(old)} older than {a.since} were left out.")
     if left_out:
@@ -330,14 +369,21 @@ def cmd_read(a):
     for m in msgs:
         who = f"{m['from_name']} <{m['from']}>" if m["from_name"] and m["from"] else (m["from"] or m["from_name"] or "unknown sender")
         tags = [t for t, on in (("machine-sent", m["machine"]), ("you are only copied", m["cc_only"]),
+                                ("sent to a group or list, not to you by name", m["not_to_you"]),
                                 (f"you replied after this, on {m['you_replied']}", m["you_replied"]),
                                 ("same conversation as " + ", ".join(f"#{i}" for i in m["same_conversation"]), m["same_conversation"]),
                                 ("contains a forwarded message", "[Forwarded message:]" in m["body"])) if on]
         if m["files"]:
             tags.append("files (not opened): " + ", ".join(m["files"][:4]))
         body = m["body"]
-        if len(body) > a.chars:   # keep the end as well: the request is often in the last lines
-            body = body[:a.chars * 2 // 3].rstrip() + f"\n[… {m['words']} words in all; the full text is in {os.path.basename(a.out)} …]\n" + body[-a.chars // 3:].lstrip()
+        if len(body) > a.chars:   # keep the start and end, and any sentence in the middle that asks for something
+            head, tail = body[:a.chars // 2].rstrip(), body[-a.chars // 4:].lstrip()
+            middle = body[a.chars // 2:-a.chars // 4]
+            asks = [x.strip() for x in re.split(r"(?<=[.?!])\s+", middle) if re.search(
+                r"\?|\b(please|can you|could you|confirm|need|needs|deadline|by (mon|tue|wed|thu|fri|sat|sun|today|tomorrow|end|noon|\d)|asap|urgent|important|approve|sign|pay)\b", x, re.I)]
+            picked = " … ".join(asks)[:a.chars // 2]
+            body = head + f"\n[… middle cut; {m['words']} words in all, full text in {os.path.basename(a.out)}" + \
+                (f". Requests in the middle: {picked}" if picked else "") + " …]\n" + tail
         print(f"### {m['id']}. {m['subject'] or '(no subject)'}")
         print(f"{who} | {m['date'] or 'no date'}" + (f" | {'; '.join(tags)}" if tags else ""))
         if m["signature"]:
@@ -379,7 +425,7 @@ def cmd_report(a):
         why = str(row.get("why", "")).strip()
         if len(why.split()) < 4:
             problems.append(f"email {i}: the reason must say who asks what, in at least four words")
-        if "scam" in why.lower() and label.lower().startswith("reply"):
+        if re.search(r"(?<!not a )(?<!not )\bscam\b", why.lower()) and label.lower().startswith("reply"):
             problems.append(f"email {i}: a possible scam cannot be under \"{label}\"")
         row["id"] = i
         by[low[label.lower()]].append(row)
@@ -411,10 +457,10 @@ def main():
     sub = ap.add_subparsers(dest="cmd")
     r = sub.add_parser("read")
     r.add_argument("paths", nargs="+")
-    r.add_argument("--me", help="the user's own address: tells mail sent to them from mail they are copied on, and finds their replies")
+    r.add_argument("--me", help="the user's own address (several, comma-separated): tells mail sent to them from mail they are copied on, and finds their replies")
     r.add_argument("--since", help="leave out mail older than this date, YYYY-MM-DD")
     r.add_argument("--max", type=int, default=200)
-    r.add_argument("--chars", type=int, default=900)
+    r.add_argument("--chars", type=int, default=1500)
     r.add_argument("--out", default="inbox.json")
     p = sub.add_parser("report")
     p.add_argument("inbox")

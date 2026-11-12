@@ -13,6 +13,7 @@ It finds things to check; it does not decide what is true. A number that is "in 
 correctly, which is not the same as being right. Reads .txt, .md, .docx and .html. Standard library only.
 """
 import argparse
+import datetime
 import html
 import json
 import re
@@ -34,6 +35,16 @@ today tomorrow yesterday summary overview background key update subject re fwd o
 MULT = {"k": 1e3, "thousand": 1e3, "m": 1e6, "million": 1e6, "bn": 1e9, "billion": 1e9}
 NUM = re.compile(r"(?<![\w.,/-])([$£€]\s?)?(\d{1,3}(?:,\d{3})+|\d+)(\.\d+)?(\s?(?:%|percent\b|per cent\b|k\b|m\b|bn\b|million\b|billion\b|thousand\b))?(?![\w/]|[.,-]\d)", re.I)
 URL = re.compile(r"https?://[^\s<>\"')\]]+")
+OTHER = [("time", re.compile(r"\b\d{1,2}(?::\d{2})?\s?(?:am|pm|a\.m\.|p\.m\.)(?!\w)|\b\d{1,2}:\d{2}\b", re.I)),
+         ("date", re.compile(r"\b\d{1,2}[/.]\d{1,2}[/.](?:\d{4}|\d{2})\b|\b\d{1,2}/\d{1,2}\b")),
+         ("range", re.compile(r"\b\d+(?:[.,]\d+)?\s?[-–]\s?\d+(?:[.,]\d+)?\s?%?(?=\s|$|[,.;:)])")),
+         ("times", re.compile(r"\b\d+(?:\.\d+)?x\b", re.I)),
+         ("decade", re.compile(r"\b\d{4}s\b|\b'\d0s\b"))]
+UP = re.compile(r"\b(up|rise|rose|risen|increase[sd]?|grew|grown|growth|more|higher|gain(?:ed)?|jump(?:ed)?)\b", re.I)
+DOWN = re.compile(r"\b(down|fall|fell|fallen|drop(?:ped)?|decrease[sd]?|cut|less|lower|sav(?:e|ed|ing|ings)|off|discount(?:ed)?|reduc(?:e|ed|tion))\b", re.I)
+ACT2 = re.compile(r"\bby \d|[$£€]\s?\d|\byou(?:'ll| will)? pay\b|\btotal\b|\bvalid until\b|\bexpires?\b|\bwithin \d", re.I)
+WEEKDAY_DATE = re.compile(r"\b(mon|tue|wed|thu|fri|sat|sun)[a-z]*\.?,?\s+(?:the\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+(?:of\s+)?([a-z]{3})[a-z]*\.?(?:,?\s+(\d{4}))?"
+                          r"|\b(mon|tue|wed|thu|fri|sat|sun)[a-z]*\.?,?\s+([a-z]{3})[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?(?:,?\s+(\d{4}))?", re.I)
 ACT = re.compile(r"\b(will|won't|must|shall|deadline|due|by (?:the )?(?:end|close|eod|" + "|".join(MONTHS + DAYS) + r"|\d)|no later than|guarantee[sd]?|"
                  r"confirm(?:ed|s)?|agreed|approved|allows?|permits?|permitted|entitled|required|always|never|refund|penalt\w+|notice period|"
                  r"free of charge|at no (?:extra |additional )?cost|included?s?|we can|you can|is able to|has capacity|commit\w*|promise[sd]?|"
@@ -94,15 +105,36 @@ def kind(m):
     return "number"
 
 
+def others_in(text):
+    """Times, slash dates, ranges, "2x" and decades: number-like things the main pattern does not list."""
+    text, out = URL.sub(" ", text), []
+    for knd, rx in OTHER:
+        for m in rx.finditer(text):
+            if not any(m.start() < e and s0 < m.end() for s0, e, _, _ in out):
+                out.append((m.start(), m.end(), m.group(0).strip(), knd))
+    return sorted(out)
+
+
+def blank_others(text):
+    text = URL.sub(" ", text)
+    for s0, e, _, _ in others_in(text):
+        text = text[:s0] + " " * (e - s0) + text[e:]
+    return text
+
+
 def numbers_in(text):
-    return [(m.group(0).strip(), value(m), kind(m), m) for m in NUM.finditer(URL.sub(" ", text))]
+    return [(m.group(0).strip(), value(m), kind(m), m) for m in NUM.finditer(blank_others(text))]
+
+
+def squash(t):
+    return re.sub(r"[\s.]", "", t.lower().replace("–", "-"))
 
 
 def close(a, b, places):
     return abs(a - b) <= 0.5 * 10 ** (-places) + 1e-9
 
 
-def worked_out(token, val, knd, beside, before):
+def worked_out(token, val, knd, beside, before, sentence=""):
     """Can this number be made from the numbers beside it? Returns a short note for the "sum" column, or ''."""
     places = len(re.sub(r"\D", "", token.split(".")[1])) if "." in token else 0
     fmt = lambda x: f"{x:,.2f}".rstrip("0").rstrip(".")
@@ -112,8 +144,12 @@ def worked_out(token, val, knd, beside, before):
             for hi in vals[i + 1:]:
                 tries = []
                 if knd == "percent" and lo:
-                    tries += [((hi - lo) / lo * 100, f"the rise from {fmt(lo)} to {fmt(hi)}"), ((hi - lo) / hi * 100, f"the fall from {fmt(hi)} to {fmt(lo)}"),
-                              (lo / hi * 100, f"{fmt(lo)} as a share of {fmt(hi)}"), (hi / lo * 100, f"{fmt(hi)} as a share of {fmt(lo)}")]
+                    up, down = bool(UP.search(sentence)), bool(DOWN.search(sentence))
+                    if not down or up:
+                        tries.append(((hi - lo) / lo * 100, f"the rise from {fmt(lo)} to {fmt(hi)}"))
+                    if not up or down:
+                        tries.append(((hi - lo) / hi * 100, f"the fall from {fmt(hi)} to {fmt(lo)}"))
+                    tries += [(lo / hi * 100, f"{fmt(lo)} as a share of {fmt(hi)}"), (hi / lo * 100, f"{fmt(hi)} as a share of {fmt(lo)}")]
                 elif knd != "percent":
                     tries += [(hi - lo, f"{fmt(hi)} minus {fmt(lo)}"), (hi + lo, f"{fmt(hi)} plus {fmt(lo)}"), (hi * lo, f"{fmt(hi)} times {fmt(lo)}")]
                     if lo:
@@ -131,6 +167,10 @@ def worked_out(token, val, knd, beside, before):
     vals = sorted({v for v in beside if v != val})
     if knd == "percent" and len(vals) >= 2:
         lo, hi = vals[0], vals[-1]
+        if UP.search(sentence) and not DOWN.search(sentence) and lo:
+            return f"**does not work out**: from {fmt(lo)} to {fmt(hi)} is a rise of {(hi - lo) / lo * 100:.1f}%"
+        if DOWN.search(sentence) and not UP.search(sentence) and hi:
+            return f"**does not work out**: from {fmt(hi)} to {fmt(lo)} is a fall of {(hi - lo) / hi * 100:.1f}%"
         return (f"**does not work out** from the numbers beside it ({fmt(lo)} is {lo / hi * 100:.1f}% of {fmt(hi)}; "
                 f"from {fmt(lo)} to {fmt(hi)} is a rise of {(hi - lo) / lo * 100:.1f}%)" if lo and hi else "**does not work out** from the numbers beside it")
     if vals:
@@ -198,7 +238,17 @@ def main():
         sys.exit("The draft is empty.")
     src = "\n".join(read_any(p) for p in a.source)
     have = bool(src.strip())
-    src_vals = {v for _, v, _, _ in numbers_in(src)}
+    src_nums = [(v, k, m) for _, v, k, m in numbers_in(src)]
+    src_squash = squash(src)
+
+    def in_notes(val, knd):
+        """The same figure, as the same kind of figure (a percent only matches a percent), and where it is."""
+        same = {"money": {"money"}, "percent": {"percent"}, "year": {"year"}, "date": {"date"}, "number": {"number"}}[knd]
+        for v, k, m in src_nums:
+            if k in same and close(val, v, 6):
+                st = m.string
+                return "\u201c" + re.sub(r"\s+", " ", st[max(0, m.start() - 30):m.end() + 30]).strip() + "\u201d"
+        return ""
     src_low = re.sub(r"\s+", " ", src.lower().replace("’", "'"))
     cell = lambda s: s.replace("|", "/").replace("\n", " ")
     short = lambda s, n=150: cell(s if len(s) <= n else s[:n - 1] + "…")
@@ -216,16 +266,25 @@ def main():
         beside = [v for _, v, k, _ in here if k not in ("date", "year")]
         before = [v for _, v, k, _ in numbers_in(sents[si - 1]) if k not in ("date", "year")] if si else []
         for tok, val, knd, _ in here:
-            ok = any(close(val, sv, 6) for sv in src_vals)
-            why = "" if ok or knd in ("year", "date") else worked_out(tok, val, knd, beside, before)
-            rows.append((tok, knd, ok, why, s))
-            out_nums.append({"number": tok, "kind": knd, "in_material": ok if have else None, "note": why, "sentence": s})
+            where = in_notes(val, knd)
+            ok = bool(where)
+            why = "" if knd in ("year", "date") else worked_out(tok, val, knd, beside, before, s)
+            if ok and why.startswith("**"):
+                why += " (the notes have the same figure, but check it is used for the same thing)"
+            elif ok:
+                why = ""
+            rows.append((tok, knd, ok, why, s, where))
+            out_nums.append({"number": tok, "kind": knd, "in_material": ok if have else None, "notes_context": where, "note": why, "sentence": s})
+        for _, _, tok, knd in others_in(s):
+            ok = squash(tok) in src_squash
+            rows.append((tok, knd, ok, "", s, ""))
+            out_nums.append({"number": tok, "kind": knd, "in_material": ok if have else None, "note": "", "sentence": s})
     print(f"\n## 1. Numbers ({len(rows)})\n")
     if rows:
         print("| Number | Kind | In your notes? | Does the sum work? | Sentence |")
         print("|---|---|---|---|---|")
-        for tok, knd, ok, why, s in rows:
-            print(f"| {cell(tok)} | {knd} | {mark(ok)} | {why or '-'} | {short(s)} |")
+        for tok, knd, ok, why, s, where in rows:
+            print(f"| {cell(tok)} | {knd} | {mark(ok)}{(' ' + cell(where)) if where else ''} | {why or '-'} | {short(s)} |")
         if have:
             n_not = sum(1 for r in rows if not r[2])
             print(f"\n{n_not} of {len(rows)} number(s) are not in your notes. Each one is checked at its source, worked out again, or cut.")
@@ -234,6 +293,24 @@ def main():
         print("Numbers written as words (\"three\", \"a dozen\", \"half\") are not listed: read for them.")
     else:
         print("No digits in the draft. Read for numbers written as words.")
+    year = re.findall(r"\b(20\d\d)\b", draft)
+    year = int(max(set(year), key=year.count)) if year else datetime.date.today().year
+    clashes = []
+    for m in WEEKDAY_DATE.finditer(draft):
+        g = m.groups()
+        wd, day, mon, yr = (g[0], g[1], g[2], g[3]) if g[0] else (g[4], g[6], g[5], g[7])
+        months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+        if mon.lower()[:3] not in months:
+            continue
+        try:
+            d = datetime.date(int(yr) if yr else year, months.index(mon.lower()[:3]) + 1, int(day))
+        except ValueError:
+            clashes.append(f"\"{m.group(0)}\" is not a real date")
+            continue
+        if d.strftime("%a").lower()[:3] != wd.lower()[:3]:
+            clashes.append(f"\"{m.group(0)}\": {d:%d %B %Y} is a {d:%A}" + ("" if yr else f" (taking the year as {year})"))
+    if clashes:
+        print("\n**Weekday and date do not match:**\n- " + "\n- ".join(clashes))
 
     # 2. names, quotes, links
     names = names_in(sents)
@@ -309,6 +386,8 @@ def main():
                 miss2 += [n for n, at in names.items() if si + 1 in at and n.lower() not in text]
                 if miss2:
                     print(f"  The sentence after it has things that are not on that page: {', '.join(miss2)}.")
+                else:
+                    print(f"  The sentence after it may lean on this page too: \"{short(nxt, 90)}\" Read it against the page.")
             if text and (miss_n or miss_names):
                 pass
             elif text:
@@ -317,7 +396,7 @@ def main():
             print(f"\n{len(urls) - 30} more link(s) were not opened.")
 
     # 3. sentences a reader acts on
-    acts = [s for s in sents if ACT.search(URL.sub(" ", s))]
+    acts = [s for s in sents if ACT.search(URL.sub(" ", s)) or ACT2.search(URL.sub(" ", s))]
     print(f"\n## 3. Sentences a reader may act on ({len(acts)})\n")
     for s in acts[:15]:
         print(f"- {short(s, 260)}")

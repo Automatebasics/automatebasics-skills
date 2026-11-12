@@ -59,10 +59,13 @@ reader may act on.
 
 How to read it:
 
-- "In your notes" means the same figure or name appears somewhere in the notes. It does not mean the notes use
-  it for the same thing. Read the two side by side.
+- "In your notes" means the same figure, as the same kind of figure (a percent only matches a percent, money
+  only money), appears in the notes. The words around it in the notes are printed beside it: read them. "15%"
+  beside "15 minutes" would not match; "$25" beside "$25 per person" for "25 students" would, so still read.
 - A "-" in the sum column means no sum was tried. It is not a pass.
 - "Equals 30 x 12 months" means the arithmetic works. Whether that is the right sum is for you to say.
+- Times (6pm), ranges (3-5 days), slash dates (30/11/2026), "2x" and decades are listed with their own kind.
+  When a date is written with its weekday, the script says if the two do not match.
 - The list of names is rough, and numbers written as words are not listed.
 
 The script finds things to check. It does not decide what is true. If you cannot run code, go through the draft
@@ -84,15 +87,18 @@ yourself and list the same things before checking any.
 - A name in the notes is confirmed as copied. A name that is not must be looked up: does it exist, is it spelled
   like that, is it the right one (the company, not its namesake)?
 - A quote must be word for word, from the person named. If the words are not in the notes, it is **wrong**: the
-  person did not say it. Put what the notes do say in its place, without quote marks.
+  person did not say it. Put what the notes do say in its place, without quote marks. **Reported speech counts as
+  a quote**: "you said that…", "a review said that…" must match what was said, or it is wrong.
 - **A link that works is not a checked fact.** Open the page, find the passage, and read whether it says what the
   draft says it says, in the sentence with the link and the ones leaning on it. The common fault is a real page
   that says something nearby: "became profitable in 2014" turned into "profitable since 2014".
 - **A link sent to a different page** (a home page, a help centre front page): the page the draft points to does
   not exist. The link is wrong, and what the draft says about it is not checked. If you can find the real page,
   read it and report what it says; offer the right link, and do not put it in the draft without saying so.
+- **A link that answers "page not found"** is wrong.
 - A link the script could not open (some sites turn scripts away) is **not checked**: open it with your own web
-  tool, or give it to the user to open.
+  tool, or give it to the user to open. Read a page as it shows on screen: copied text loses ticks and crosses in
+  tables.
 
 **Things the tool added.** Read the draft against the notes one sentence at a time. Any statement that is not in
 the notes at all, with or without a number in it (a decision, a plan, a promise, a reason), was added by the
@@ -111,7 +117,7 @@ was never told?"
 ## The report
 
 1. **Verdict line**, one of three, with the count of items confirmed, wrong and not checked (count each number,
-   name, quote, link and added statement once):
+   name, quote, link and added statement once; a link and the claim it is meant to support are two items):
    - **Ready to send**: nothing wrong, nothing unchecked that a reader would act on.
    - **Ready after these fixes**: everything wrong can be put right from the notes or the pages you read.
    - **Not ready**: something can only be settled by the user (an unsupported promise, a decision the notes do
@@ -123,9 +129,11 @@ was never told?"
 6. **Confirmed**: one line with the count, and how (in your notes, on the page, worked out). List them only if
    asked.
 
-Then give the corrected draft. Fix what is wrong using only the notes and the pages you read. Mark what is not
-checked in square brackets, like `[check: 30 days' notice]`, so it cannot be sent by accident. Change nothing
-else: no smoother wording, no new sentences.
+Then give the corrected draft. Fix what is wrong using only the notes and the pages you read; a figure you worked
+out again goes in with its assumption said in the report ("35 hours, taking 52 weeks"). Mark what is not checked
+in square brackets, like `[check: 30 days' notice]`, so it cannot be sent by accident. Change nothing else: no
+smoother wording, no new sentences. What is missing stays in the report, not in the draft. The draft's own purpose
+("I'd like to automate this") is the user's and needs no brackets.
 
 Never say a draft is "accurate" or "verified". Say what was confirmed and what was not.
 

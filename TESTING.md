@@ -11,9 +11,8 @@ them is invented, and every address ends in `.example`. Each has traps planted i
 test used an invented memo about real public facts (the Wikipedia article on Zapier, read that day), and the
 `automate` test opened real guides on automatebasics.com.
 
-Every test found faults. They are listed here with what was changed. **The script fixes were re-run on the same
-inputs and on the cases that broke them. The rewritten instructions have not yet been run again by a fresh
-agent.**
+Every test found faults. They are listed here with what was changed. The skills were then run a second time by
+fresh agents on 13 November 2026 (see "Second round" at the end), which found more.
 
 ## inbox
 
@@ -193,6 +192,72 @@ numbers, and the share an automation takes over is always an estimate.
 The scripts were run on Python 3.9 and 3.14 on macOS. `bash build.sh --check` passes. Every automatebasics.com
 address in the skills answered 200 on 12 November 2026.
 
+## Second round (13 November 2026)
+
+After the fixes above, each skill was installed fresh from this repository and run again by a new agent: once on
+the same input, and once on an input the agent built itself, aimed at whatever it judged the skill most likely to
+get wrong. On the original inputs all five gave a sound result; their checks passed first time. The new inputs
+found serious faults in every skill. The script fixes below were re-run on those inputs; the rewritten instructions
+have not had a third run.
+
+**inbox** (a second mailbox of 17 emails: Outlook and Apple Mail forwards, the user's own sent mail, several time
+zones, a Spam label, a long email with its request in the middle, duplicates):
+- An Outlook forward with a note above it, and every Apple Mail forward, lost the forwarded email. Both are kept now.
+- Conversations were linked by subject alone, so the user's reply to one "Quick question" was credited to a
+  stranger's "Quick question", which would then be filed as needing no reply. Linking now uses the emails' own
+  reply headers, or a shared subject and a person in common.
+- A Gmail label such as "Client drafts" was read as Drafts and the email silently dropped. Only the real Spam,
+  Trash and Drafts labels count now, and each email set aside is named.
+- Mail sent from the user's second address was listed as incoming. Several addresses can be given, and Gmail's
+  Sent label counts as the user's own mail.
+- A request in the middle of a long email was cut out. Long emails now keep any sentence in the middle that asks
+  for something.
+- Also: times show the sender's time zone; exact duplicates are merged; "[EXTERNAL]" tags no longer break linking;
+  French and German quoted replies and "Sent from my iPhone" are removed; mail sent to a group is marked.
+
+**rows** (a 320-row file with single-quoted words, a European semicolon file, an Excel file using 1904 dates, a
+title above the header, duplicate and comma-holding column names):
+- A file with words in single quotes ('Pro') was read with the wrong quote mark, garbling 91 of 321 rows while
+  reporting the original unchanged. Only the separator is guessed now; the quote mark is always the standard one.
+- The original could still be overwritten: by `--out` with different capitals, or through a link. Fixed, and
+  merge will not write over any file an earlier merge did not make unless told to.
+- Sorting or swapping the file between handing out the rows and merging them put every answer on the wrong row,
+  silently. Merge now compares every row with what was handed out and refuses on any difference.
+- A title line above the header became the header. A one-cell title is now detected, and the header row can be
+  named.
+- Also: column names containing a comma can be picked, as can column letters; duplicate headers stay distinct;
+  semicolon files stay semicolon; Excel 1904 dates and time-only cells read correctly; odd answer types are refused.
+
+**notes** (Teams, Meet, Otter, Word, Zoom and subtitle files, a 170-line meeting, two speakers sharing a first name,
+and 13 deliberately wrong items):
+- All 13 wrong items passed the check, among them a task credited to the wrong person, a task someone refused, a
+  "maybe" written as a decision, a task marked done, and a wrong calendar date. The owner must now have said the
+  quoted line; questions, maybes and "someone should" are refused as decisions or tasks; done tasks are refused;
+  with the meeting's date the calendar date in brackets is checked. All 13 are now refused.
+- Two people sharing a first name counted as one. They must now be named in full.
+- Meet and Word transcripts with the name alone on a line were not split by speaker; Zoom names in lower case, with
+  accents or with five words were lost and two people merged. All are read now.
+- Also: an item's time is now the time its words were said, not the start of a merged line.
+
+**check** (a client quote with a wrong discount and total, a misread study, dates on the wrong weekday, a time, a
+range and an expiry date, reported speech):
+- A figure matched any equal number in the notes, so "15%" passed because the notes said "15 minutes". Figures now
+  match only the same kind (percent with percent, money with money) and the words around the match are shown.
+- Times, ranges, slash dates, "2x" and decades were never listed. They are now.
+- A date written with the wrong weekday was not noticed. It is now.
+- "Up by 17%" from 1,500 to 1,800 was matched to the fall the other way. The direction word is now used.
+- Also: the sentence after a link is always pointed out; prices and "by 6pm" count as things a reader acts on; the
+  instructions now treat reported speech as a quote and a "page not found" link as wrong.
+
+**automate** (three more chores, including a quarterly report, review replies and team timesheets, and sixteen
+guide searches):
+- With a paid tool in the sum, the hours could come back while the money did not, and the verdict looked only at
+  hours. The script now says so, and the instructions require money back too.
+- The guide search matched on "they" and on one shared word, ranked ties by title length, and did not match
+  "categorise" with "categorize". All fixed; searches that should find nothing (timesheets) now find nothing.
+- Also: "every day" and "quarter" are options; paybacks over three years say so; posting replies in the business's
+  name is on the never list.
+
 ## Install commands
 
 The Claude Code install lines in the README were run against GitHub on the day the repository was published:
@@ -202,8 +267,8 @@ identical to the one in `dist/`.
 
 ## Not tested
 
-- **The rewritten instructions, end to end.** After the fixes above, each script was re-run on its test input,
-  but no fresh agent has run the five skills again.
+- **The second round's instruction changes, end to end.** The scripts were re-run on the inputs that broke them;
+  no fresh agent has run the skills a third time.
 - **Real exports.** The test mailbox was written with Python's own mailbox library, not downloaded from Gmail,
   Outlook or Apple Mail. The transcripts were written by hand in the formats Zoom, Meet, Teams and Otter use.
 - **The email-connector route of `inbox`**, and `automate` reading a calendar.

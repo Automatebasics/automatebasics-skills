@@ -20,7 +20,8 @@ orchestration, webhook, API, ROI or no-code to the user unless they use those wo
 "When X happens, do Y".
 
 What the script prints is for you. Write the answer to the user in your own words, and put guide summaries in
-plain words too: no command names or option names.
+plain words too (guide titles and summaries use words like "workflow" and "trigger": say them differently): no
+command names or option names, and no minus signs in money ("$168 down", not "-$168").
 
 Paths in the commands below are relative to this skill's folder. Run them with the full path to the script.
 
@@ -47,8 +48,8 @@ them: the ten-minute daily task usually beats the two-hour monthly one.
 python3 scripts/worth.py sum --minutes 40 --times 1 --per week --people 1 --hourly 45
 ```
 
-- `--per` is day, week, month or year. `--hourly` is what an hour of that person's time costs; leave it out if
-  the user does not want money in it.
+- `--per` is day (a working day, 5 a week), everyday (7 a week), week, month, quarter or year. `--hourly` is what
+  an hour of that person's time costs; leave it out if the user does not want money in it.
 - `--share` is the part of the work the automation would take over. It is 80 unless you know better. When only
   the preparation would be automated (step 4), use the share that is preparation, and say it is your estimate.
 - `--setup-hours` is the time to build and test it: 4 unless you know better, 2 to 8 for something that crosses
@@ -56,7 +57,8 @@ python3 scripts/worth.py sum --minutes 40 --times 1 --per week --people 1 --hour
 - `--upkeep-hours` is the time a year to keep it working: 12 (an hour a month) for something that crosses apps,
   0 to 3 for a single built-in setting.
 - `--tool` is the monthly price of a paid tool. Leave it out now; if step 8 lands on a paid tool and the user
-  tells you its price, run the sum again with it.
+  tells you its price (or already pays for one), run the sum again with it. The hours lines never include the
+  tool; the money lines do, and the script says when the tool costs more than the time is worth.
 
 It prints hours by hand a year, hours saved, the time it costs, hours back in the first year and after, and (with
 `--hourly`) the money back and how long the setup takes to pay back. Every line counts setup and upkeep. The
@@ -85,7 +87,8 @@ Whatever the sum says, nothing does these on its own:
   money leaving with nobody looking, and once known it invites abuse.
 - **Anything where a quiet mistake does real harm**: safety, legal deadlines, health, anything regulated. The
   usual failure is not a crash; it is running wrongly for six weeks unnoticed.
-- **Relationships**: personal messages sent in bulk. People can tell.
+- **Relationships**: personal messages sent in bulk, and anything posted publicly in the business's name (replies
+  to reviews, comments). People can tell.
 - **Judgement with consequences**: hiring, firing, credit, price exceptions.
 - **Anything the user cannot do by hand and explain.**
 
@@ -97,12 +100,17 @@ the preparation alone (`--share` at the part that is preparation) before recomme
 
 One of three, in the first line of your answer for that chore:
 
-- **Automate it**: passes the four tests, is not on the list in step 4, and gives hours back in the first year.
+- **Automate it**: passes the four tests, is not on the list in step 4, gives hours back in the first year, and,
+  when a paid tool is in the sum, gives money back in the first year too.
 - **Automate the preparation; a person presses the button**: it is on the list in step 4, and the preparation
-  alone still gives hours back.
+  alone gives hours back in the first year (same bar as above).
 - **Leave it by hand**: it fails a test, or the sum gives nothing back (for step 4 chores, the sum for the
   preparation alone). Say which, and what to do instead. The fixes that cost nothing: a written checklist, a
-  saved reply, a template, a label or rule the app already has, doing them in one sitting a week.
+  saved reply, a template, a label or rule the app already has, doing them in one sitting (once a day for anything
+  a customer is waiting on, once a week otherwise).
+
+When the verdict turns on your estimate of the share (it flips if the share moves by a tenth or so), say so, and
+give the share at which it would flip.
 
 If the verdict is to leave it by hand, skip steps 6 to 8. Do not write a recipe for something that should not be
 built. Say at what point the answer would change ("at about 15 a week the preparation would pay").

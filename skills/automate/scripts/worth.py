@@ -21,18 +21,20 @@ import re
 import sys
 
 WEEKS = 48
-PER_YEAR = {"day": 5 * WEEKS, "week": WEEKS, "month": 12, "year": 1}
-PER_WORDS = {"day": f"a day x 5 days x {WEEKS} working weeks", "week": f"a week x {WEEKS} working weeks", "month": "a month x 12 months", "year": "a year"}
+PER_YEAR = {"day": 5 * WEEKS, "everyday": 7 * 52, "week": WEEKS, "month": 12, "quarter": 4, "year": 1}
+PER_WORDS = {"day": f"a working day x 5 days x {WEEKS} working weeks", "everyday": "a day x 7 days x 52 weeks",
+             "week": f"a week x {WEEKS} working weeks", "month": "a month x 12 months", "quarter": "a quarter x 4", "year": "a year"}
 STOP = set("""a an the and or to of in on for with from by at into your my our you i we it is are be do does how
 when that this then them each every new all any get make set up use using without automatically automatic auto
-so can will not no as after before via ai tool way best who have has not their his her its me""".split())
+so can will not no as after before via ai tool way best who have has not their his her its me they them she he
+one someone something every each day week month daily weekly morning lot need want try""".split())
 SAME = [("email", "inbox", "mail", "gmail", "outlook"), ("fail", "break", "broke", "broken", "error", "stop"),
-        ("hire", "employee", "staff", "onboard", "starter", "joiner"), ("sheet", "spreadsheet", "excel"),
+        ("hire", "employee", "staff", "onboard", "onboarding", "starter", "joiner", "join"), ("sheet", "spreadsheet", "excel"),
         ("meeting", "appointment", "booking", "book", "calendly", "call"), ("customer", "client"),
-        ("reminder", "remind", "chase", "follow", "nudge"), ("invoice", "bill", "payment", "pay", "paid"),
-        ("file", "document", "attachment", "pdf", "doc"), ("alert", "notify", "notification", "told", "tell", "warn"),
+        ("reminder", "remind", "chase", "follow", "nudge"), ("invoice", "bill", "payment", "overdue", "unpaid"),
+        ("file", "attachment"), ("alert", "notify", "notification", "told", "tell", "warn"),
         ("order", "sale", "purchase"), ("shop", "store", "shopify"), ("form", "survey", "response", "answer"),
-        ("post", "publish", "schedule"), ("report", "summary", "digest")]
+        ("post", "publish", "schedule"), ("report", "summary"), ("categorize", "categorise", "classify", "tag", "label", "sort")]
 CANON = {w: group[0] for group in SAME for w in group}
 
 
@@ -71,7 +73,8 @@ def cmd_sum(a):
     elif back_later > 0:
         print(f"- Hours back: **none in the first year** (setup and upkeep take {hours(setup + upkeep)}, more than the {hours(saved)} saved); {hours(back_later)} each year after")
     else:
-        print(f"- Hours back: **none**. Keeping it running takes about as long as it saves ({hours(saved)} saved, {upkeep:g} upkeep a year). Not worth building at these numbers")
+        print(f"- Hours back: **none**. Keeping it running takes {upkeep:g} hours a year, " +
+              ("about as much as" if saved > upkeep * 0.8 else "more than") + f" the {hours(saved)} it saves. Not worth building at these numbers")
     if a.hourly is not None:
         value, tool = saved * a.hourly, a.tool * 12
         net = value - tool - (setup + upkeep) * a.hourly
@@ -80,13 +83,15 @@ def cmd_sum(a):
               (f" - {money(tool)} for the tool" if tool else "") + ")" + ("" if tool else ", before any tool subscription"))
         monthly = (value - tool - upkeep * a.hourly) / 12
         if monthly <= 0:
-            print("- Pays back the setup time: **never at these numbers**")
+            print("- Pays back the setup time: **never at these numbers**" + (" (the tool costs more than the time it saves)" if tool and value - upkeep * a.hourly > 0 else ""))
         else:
             months = setup * a.hourly / monthly
-            print("- Pays back the setup time in: **" + ("under a month" if months < 1 else f"about {months:.1f} months") + "**")
+            print("- Pays back the setup time in: **" + ("under a month" if months < 1 else f"about {months:.1f} months" if months <= 36 else "more than three years") + "**")
+        if tool and net <= 0 < back_first:
+            print("- **The hours come back, but the money does not**: the tool costs more than the time saved is worth. At these numbers it is not worth building")
         print(f"- The calculator on automatebasics.com leaves upkeep out, so it would show {money(value - tool - setup * a.hourly)} for the first year")
     elif a.tool:
-        print(f"- The tool costs {money(a.tool * 12)} a year. Give the cost of an hour (--hourly) to see whether the time saved covers it.")
+        print(f"- The tool costs {money(a.tool * 12)} a year, which the hours above leave out. Give the cost of an hour (--hourly) to see whether the time saved covers it.")
     print()
     if a.times * PER_YEAR[a.per] < WEEKS:
         print("It happens less than once a week. Tasks this rare usually take longer to automate than to do: a checklist is the better fix.")
@@ -104,6 +109,7 @@ def words(s):
             w = w[:-2]
         elif w.endswith("s") and not w.endswith("ss") and len(w) > 3:
             w = w[:-1]
+        w = re.sub(r"is(e|ed|ing|ation)$", r"iz\1", w)          # British and American spellings meet
         if w.endswith("ing") and len(w) > 5:
             w = w[:-3]
         elif w.endswith("ed") and len(w) > 4:
@@ -121,16 +127,17 @@ def cmd_guides(a):
     want = set(words(a.query))
     if not want:
         sys.exit("Say what the chore is, for example: guides \"save email attachments to a folder\"")
-    need = 1 if len(want) <= 3 else 2
+    need = len(want) if len(want) <= 2 else (2 if len(want) <= 4 else 3)
     scored = []
     for g in data["guides"]:
         title = set(words(g["title"] + " " + g.get("when", "") + " " + g.get("then", "")))
         about = set(words(g.get("about", "") + " " + g.get("tools", "")))
         hit_t, hit_a = want & title, want & (about - title)
         if len(hit_t) + len(hit_a) >= need and hit_t:
-            scored.append((3 * len(hit_t) + len(hit_a), len(hit_t), bool(g.get("ready")), g))
-    scored.sort(key=lambda x: (-x[0], -x[1], not x[2], len(x[3]["title"])))
-    scored = [x for x in scored if x[0] >= 0.7 * scored[0][0]][:max(1, a.top)]
+            cover = len(hit_t) / max(1, len(set(words(g["title"]))))      # how much of the title the search covers
+            scored.append((3 * len(hit_t) + len(hit_a), cover, bool(g.get("ready")), g))
+    scored.sort(key=lambda x: (-x[0], -x[1], not x[2]))
+    scored = [x for x in scored if x[0] >= 0.7 * scored[0][0]][:max(1, a.top)] if scored else []
     count = len(data["guides"])
     if not scored:
         print(f"No guide matched \"{a.query}\" among the {count} how-to guides listed on {data['read_on']}. Try the names of the apps involved, "
@@ -153,7 +160,7 @@ def main():
     s = sub.add_parser("sum")
     s.add_argument("--minutes", type=float, required=True, help="minutes the task takes by hand, each time")
     s.add_argument("--times", type=float, required=True, help="how many times it is done per --per")
-    s.add_argument("--per", choices=sorted(PER_YEAR), default="week")
+    s.add_argument("--per", choices=sorted(PER_YEAR), default="week", help="day (a working day, 5 a week), everyday (7 a week), week, month, quarter, year")
     s.add_argument("--people", type=float, default=1)
     s.add_argument("--hourly", type=float, help="cost of an hour of their time")
     s.add_argument("--share", type=float, default=80, help="percent of the work the automation takes over")
