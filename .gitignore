@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+inbox.json
+labels.json
+transcript.json
+notes.json
+rows-work/

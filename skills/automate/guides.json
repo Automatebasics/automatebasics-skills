@@ -1,0 +1,966 @@
+{
+ "read_on": "12 November 2026",
+ "source": "https://automatebasics.com/guides",
+ "guides": [
+  {
+   "title": "Add a Zoom Link Automatically to Calendly Bookings",
+   "about": "Connect Zoom to Calendly, set Zoom as the event location, and test a booking. Check the connection and invitation if the link is missing.",
+   "url": "https://automatebasics.com/guides/add-a-zoom-link-automatically-to-calendly-bookings",
+   "when": "Someone books you on Calendly",
+   "then": "Their invite has a Zoom link in it",
+   "tools": "Zapier + Calendly + Zoom Workplace",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Automate Abandoned-Cart Emails in Shopify Without Code",
+   "about": "Set up Shopify abandoned-cart emails with AI, choose the right trigger, avoid discount mistakes, and test every link before sending.",
+   "url": "https://automatebasics.com/guides/automate-abandoned-cart-emails-in-shopify-without-code",
+   "when": "A shopper leaves items in their cart",
+   "then": "Shopify sends them a follow-up email",
+   "tools": "ChatGPT + Zapier + Shopify",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Automatically Email New Files in a Folder for Your Team",
+   "about": "Use a new-file trigger, Gmail action, and a processed-folder rule to email your team without code. Compare attachments, links, and duplicate controls.",
+   "url": "https://automatebasics.com/guides/automatically-email-new-files-in-a-folder-for-your-team",
+   "when": "A new file lands in a shared folder",
+   "then": "Your team gets an email about it",
+   "tools": "Zapier + Microsoft Power Automate",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Automatically Save Email Attachments to a Folder",
+   "about": "Use Zapier, Gmail, Google Drive, or Outlook to save email attachments automatically, avoid duplicates, and handle risky files safely.",
+   "url": "https://automatebasics.com/guides/automatically-save-email-attachments-to-a-folder",
+   "when": "An email arrives with an attachment",
+   "then": "It is saved to a Drive or OneDrive folder",
+   "tools": "Zapier + Microsoft Power Automate",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Collect Client Files Without Sharing Your Folders",
+   "about": "Use a file-request link for easy client uploads, or Google Forms when you need intake questions and clients can sign in.",
+   "url": "https://automatebasics.com/guides/collect-client-files-without-sharing-your-folders",
+   "when": "A client needs to send you files",
+   "then": "They upload to a request link, no folder sharing",
+   "tools": "Google Forms",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Connect ChatGPT to Slack Without Writing Code",
+   "about": "Ask ChatGPT a question in Slack and get the answer in the thread: a no-code Zapier setup that keeps replies threaded and sensitive channels out of it.",
+   "url": "https://automatebasics.com/guides/connect-chatgpt-to-slack-without-writing-code",
+   "when": "You ask a question in Slack",
+   "then": "ChatGPT answers in the thread",
+   "tools": "ChatGPT + Zapier + Make",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Connect Claude to Google Sheets Without Writing Code",
+   "about": "Have Claude read a Google Sheet and write results back to the right rows whenever a new entry lands, set up with Zapier and tested on a copy first.",
+   "url": "https://automatebasics.com/guides/connect-claude-to-google-sheets-without-writing-code",
+   "when": "A new row lands in a Google Sheet",
+   "then": "Claude reads it and writes the result back",
+   "tools": "Claude + Zapier",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Connect Claude to n8n: 3 Workflows to Try This Week",
+   "about": "Connect Claude to n8n with three practical workflows for email triage, form requests, and meeting notes, including setup steps and safety checks.",
+   "url": "https://automatebasics.com/guides/connect-claude-to-n8n-3-workflows-to-try-this-week",
+   "when": "Emails, form requests or meeting notes come in",
+   "then": "Claude handles them in n8n, three ways",
+   "tools": "Claude + n8n + Notion",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Create a New-Hire Onboarding Checklist Automatically",
+   "about": "Create a new-hire checklist from a reusable template, assign owners and dates, and prevent duplicate tasks when a form is submitted again.",
+   "url": "https://automatebasics.com/guides/create-a-new-hire-onboarding-checklist-automatically",
+   "when": "A new-hire form is submitted",
+   "then": "A checklist with owners and dates is made",
+   "tools": "Trello",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Delay a Zapier Follow-Up Without Emailing After a Reply",
+   "about": "Delay the follow-up, record customer replies, and check the conversation's current status just before Zapier sends an email.",
+   "url": "https://automatebasics.com/guides/delay-a-zapier-follow-up-without-emailing-after-a-reply",
+   "when": "A lead goes quiet for a few days",
+   "then": "Zapier follows up, unless they already replied",
+   "tools": "Zapier",
+   "level": "Intermediate",
+   "ready": true
+  },
+  {
+   "title": "Get an Alert When a Google Sheets Column Changes",
+   "about": "Use a Sheets conditional notification to watch one column if it is available, or filter an automation when you need more control.",
+   "url": "https://automatebasics.com/guides/get-an-alert-when-a-google-sheets-column-changes",
+   "when": "One column in a Google Sheet changes",
+   "then": "You get an alert",
+   "tools": "",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Get an Alert When a Zapier Automation Fails",
+   "about": "Turn on Zapier error emails or build a separate alert workflow, then check which failures need action before safely rerunning a task.",
+   "url": "https://automatebasics.com/guides/get-an-alert-when-a-zapier-automation-fails",
+   "when": "A Zapier automation fails",
+   "then": "You get an alert and can rerun it safely",
+   "tools": "Zapier",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Get Email Alerts When a Shared Google Doc Changes",
+   "about": "Turn on edit notifications in a shared Google Doc, check them with a test edit, and choose comments instead when you only need actionable updates.",
+   "url": "https://automatebasics.com/guides/get-email-alerts-when-a-shared-google-doc-changes",
+   "when": "Someone edits a shared Google Doc",
+   "then": "You get an email about it",
+   "tools": "",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "How to Automate Email Classification Without Coding",
+   "about": "Use Gmail or Outlook, an AI step, and a human review queue to sort email safely without writing code.",
+   "url": "https://automatebasics.com/guides/how-to-automate-email-classification-without-coding",
+   "when": "Email lands in Gmail or Outlook",
+   "then": "AI sorts it, with a human review queue",
+   "tools": "Zapier + ChatGPT + Claude",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "How to Automate Emails With Attachments Using AI",
+   "about": "Email each person the right file from a spreadsheet row, using Gmail or Outlook with Zapier, Make or n8n, and a check that stops the wrong attachment.",
+   "url": "https://automatebasics.com/guides/how-to-automate-emails-with-attachments-using-ai",
+   "when": "A spreadsheet row is ready",
+   "then": "Each person is emailed the right file",
+   "tools": "ChatGPT + Zapier",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "How to Automatically Categorise Support Emails With AI",
+   "about": "Learn how to use Gmail, Zapier and AI to label support emails, route urgent requests and handle uncertain classifications without code.",
+   "url": "https://automatebasics.com/guides/how-to-automatically-categorise-support-emails-with-ai",
+   "when": "A support email arrives",
+   "then": "AI labels it and routes the urgent ones",
+   "tools": "Zapier",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Set Up Google Meet to Take Notes Automatically",
+   "about": "Set up Google Meet AI notes before a meeting, check when note-taking starts, find the document, and review access before sharing it.",
+   "url": "https://automatebasics.com/guides/set-up-google-meet-to-take-notes-automatically",
+   "when": "A Google Meet call starts",
+   "then": "Gemini takes the notes into a Doc",
+   "tools": "Gemini in Google Workspace + Google Meet",
+   "level": "Beginner",
+   "ready": true
+  },
+  {
+   "title": "Add Accurate AI Captions to a Recorded Training Video",
+   "about": "Use AI to draft captions for a recorded training video, check names and timing, then choose editable captions or text burned into the video.",
+   "url": "https://automatebasics.com/guides/add-accurate-ai-captions-to-a-recorded-training-video"
+  },
+  {
+   "title": "Add Breaks and a Daily Booking Limit in Calendly",
+   "about": "Use buffers, availability and a daily event limit to keep Calendly meetings apart, protect longer breaks and cap bookings.",
+   "url": "https://automatebasics.com/guides/add-breaks-and-a-daily-booking-limit-in-calendly"
+  },
+  {
+   "title": "Add Shopify Orders to Google Sheets Without Double Counting",
+   "about": "Connect Shopify to Google Sheets with a no-code automation, then update the same order row when an order changes or is cancelled.",
+   "url": "https://automatebasics.com/guides/add-shopify-orders-to-google-sheets-without-double-counting"
+  },
+  {
+   "title": "AI Acceptable Use Policy: A Small-Business Checklist",
+   "about": "Use this same-day checklist to approve AI tasks, block risky data, assign human checks, and publish a policy your team can follow.",
+   "url": "https://automatebasics.com/guides/ai-acceptable-use-policy-a-small-business-checklist"
+  },
+  {
+   "title": "AI Automation Implementation Checklist for Your First Workflow",
+   "about": "An AI automation implementation checklist covers task selection, triggers, permissions, approval, testing, error detection, monitoring, and rollback.",
+   "url": "https://automatebasics.com/guides/ai-automation-implementation-checklist-for-your-first-workflow"
+  },
+  {
+   "title": "AI Automation ROI for Small Business: Get an Exact Quote",
+   "about": "AI automation ROI depends on time saved, errors avoided and sales gained versus setup, tool, review and maintenance costs.",
+   "url": "https://automatebasics.com/guides/ai-automation-roi-for-small-business-get-an-exact-quote"
+  },
+  {
+   "title": "AI Data Privacy Training: Eight Steps That Work",
+   "about": "Build AI privacy training employees can use this week, with a route comparison, tool checks, safe practice tasks and failure tests.",
+   "url": "https://automatebasics.com/guides/ai-data-privacy-training-eight-steps-that-work"
+  },
+  {
+   "title": "AI Output Review Checklist for Work",
+   "about": "Review AI work by checking facts, sources, privacy, instructions, calculations, tone and approval before you send or publish it.",
+   "url": "https://automatebasics.com/guides/ai-output-review-checklist-for-work"
+  },
+  {
+   "title": "Answer Questions From a 100-Page Policy Pack With NotebookLM (Cited, No Guessing)",
+   "about": "Ask your own PDFs questions in plain English: NotebookLM answers only from your sources and links each answer to the exact page. Free, no install.",
+   "url": "https://automatebasics.com/guides/notebooklm-policy-document-qa"
+  },
+  {
+   "title": "Archive Trello Cards After They Have Been Done for 30 Days",
+   "about": "Use Trello automation to archive cards based on when they enter Done, and check that reopening a card cancels its pending archive.",
+   "url": "https://automatebasics.com/guides/archive-trello-cards-after-they-have-been-done-for-30-days"
+  },
+  {
+   "title": "Ask Shopify Customers for Reviews After Delivery",
+   "about": "Use a delivery signal, check the order again before sending, and keep a customer-level record so cancelled orders and repeat requests stay out.",
+   "url": "https://automatebasics.com/guides/ask-shopify-customers-for-reviews-after-delivery"
+  },
+  {
+   "title": "Auto-Categorize Your Expenses With AI (Right in Your Spreadsheet)",
+   "about": "Sort every expense into the right category in one pass: paste your transactions into Claude or ChatGPT with your own category list, then review the doubts.",
+   "url": "https://automatebasics.com/guides/google-sheets-gemini-expense-categorizer"
+  },
+  {
+   "title": "Auto-File Email Attachments to SharePoint and Notify the Team (Power Automate)",
+   "about": "Build a Power Automate flow that files every Outlook attachment into the right SharePoint folder and posts a note in Teams, with no code.",
+   "url": "https://automatebasics.com/guides/power-automate-email-attachments-sharepoint"
+  },
+  {
+   "title": "Auto-Post Google Docs to LinkedIn Without Writing Code",
+   "about": "Turn an approved Google Doc into a LinkedIn post without copy-paste: Zapier triggers it, AI drafts the hook, and a duplicate guard stops double posts.",
+   "url": "https://automatebasics.com/guides/auto-post-google-docs-to-linkedin-without-writing-code"
+  },
+  {
+   "title": "Auto-Post Your Blog to Social With n8n + Claude",
+   "about": "Share every new post without thinking about it: n8n watches your RSS feed, Claude writes an on-brand caption, and it queues to your social channels.",
+   "url": "https://automatebasics.com/guides/make-rss-to-social-scheduler"
+  },
+  {
+   "title": "Auto-Reply to New Leads in Under a Minute (n8n + Claude)",
+   "about": "Reply to every new lead within a minute: a workflow catches each form submission, files the lead in your CRM and sends a warm, personal reply.",
+   "url": "https://automatebasics.com/guides/zapier-form-to-crm-instant-reply"
+  },
+  {
+   "title": "Automate a Weekly Report From Google Sheets to Slack or Email",
+   "about": "Post a weekly summary from a Google Sheet to Slack or email automatically: a no-code Zapier or Make schedule reads the numbers every Friday.",
+   "url": "https://automatebasics.com/guides/automate-weekly-report-sheets-to-slack-email"
+  },
+  {
+   "title": "Automate Job Applications and Your Job Hunt in 5 Steps",
+   "about": "Automate job applications in five steps: tailor each resume with AI, autofill the forms and submit yourself, track every application and follow up.",
+   "url": "https://automatebasics.com/guides/automate-job-hunt-resume-tailoring-ats-tracking"
+  },
+  {
+   "title": "Automate Your SEO Reporting: Search Console and AI Visibility in One Loop",
+   "about": "One automated weekly report on what Google Search Console shows and what ChatGPT and Perplexity say about you, with no copy-pasting into spreadsheets.",
+   "url": "https://automatebasics.com/guides/automate-seo-reporting-search-console-ai-visibility"
+  },
+  {
+   "title": "Automated Product Certification: A Practical Workflow",
+   "about": "Automated product certification means checking product evidence against rules, recording decisions, and routing exceptions for human review.",
+   "url": "https://automatebasics.com/guides/automated-product-certification-a-practical-workflow"
+  },
+  {
+   "title": "Automatically Rename Scanned Receipts in Google Drive",
+   "about": "Use a no-code flow to read scanned receipts, rename clear matches in Google Drive, and send uncertain dates or merchant names for review.",
+   "url": "https://automatebasics.com/guides/automatically-rename-scanned-receipts-in-google-drive"
+  },
+  {
+   "title": "Back Up Airtable Records to Google Sheets Without Duplicates",
+   "about": "Use a no-code automation to copy Airtable records into Google Sheets and update existing rows by record ID when the source changes.",
+   "url": "https://automatebasics.com/guides/back-up-airtable-records-to-google-sheets-without-duplicates"
+  },
+  {
+   "title": "Build a Big-Company Marketing Engine With a Startup Team",
+   "about": "A small team can run launches, content and email like a bigger one when AI agents share brand context, a calendar and a review step. How, and when not to.",
+   "url": "https://automatebasics.com/guides/run-marketing-with-a-small-team-and-ai-agents"
+  },
+  {
+   "title": "Build a Daily AI Briefing With ChatGPT Tasks (No Server, No Code)",
+   "about": "Wake up to a briefing ChatGPT writes for you every morning: one scheduled prompt in ChatGPT Tasks, with no automation tool and no server. Prompt included.",
+   "url": "https://automatebasics.com/guides/chatgpt-tasks-daily-briefing"
+  },
+  {
+   "title": "Build a Google Forms Dashboard That Updates in Sheets",
+   "about": "Connect Google Forms to Sheets, build charts from a response summary, and check that new answers appear without rebuilding the dashboard.",
+   "url": "https://automatebasics.com/guides/build-a-google-forms-dashboard-that-updates-in-sheets"
+  },
+  {
+   "title": "Build a Power Automate Approval Flow Without Code",
+   "about": "Route a request to the right approver, capture the answer and act on it automatically: a Power Automate approval flow built in about 30 minutes.",
+   "url": "https://automatebasics.com/guides/power-automate-approval-flow-without-code"
+  },
+  {
+   "title": "Build a Shopify Storefront From a Canvas Brief",
+   "about": "Describe your store to Canvas, turn the draft into pages and sections, then check products, policies and checkout before launch.",
+   "url": "https://automatebasics.com/guides/build-a-shopify-storefront-from-a-canvas-brief"
+  },
+  {
+   "title": "Build an Abandoned Cart Email Flow (Recover Sales You Already Earned)",
+   "about": "Recover sales you already earned: a three-email abandoned cart flow that brings shoppers back to checkout, run on n8n with Claude writing the emails.",
+   "url": "https://automatebasics.com/guides/klaviyo-abandoned-cart-email-flow"
+  },
+  {
+   "title": "Build an End-of-Day Shutdown Routine with Apple Shortcuts",
+   "about": "Close the workday with one tap: an Apple Shortcut that surfaces tomorrow and silences work apps, with no subscription and nothing to install.",
+   "url": "https://automatebasics.com/guides/apple-shortcuts-end-of-day-shutdown"
+  },
+  {
+   "title": "Clean a Messy CSV and Build a PivotTable in Plain English (with AI)",
+   "about": "Describe the cleanup and summary you want in plain English and get the steps and exact formulas for Excel or Sheets. No macros, nothing to install.",
+   "url": "https://automatebasics.com/guides/excel-copilot-clean-csv-pivot"
+  },
+  {
+   "title": "Close a Google Form Automatically at a Deadline",
+   "about": "Set a closing date in Google Forms when available, or use a no-code form add-on. Test the respondent link before sharing it.",
+   "url": "https://automatebasics.com/guides/close-a-google-form-automatically-at-a-deadline"
+  },
+  {
+   "title": "Collect Daily Standup Updates in Slack Automatically",
+   "about": "Post a recurring standup prompt in Slack and keep replies together, with clear rules for weekends, absences and blockers.",
+   "url": "https://automatebasics.com/guides/collect-daily-standup-updates-in-slack-automatically"
+  },
+  {
+   "title": "Combine Monthly Excel Files From a Folder With Power Query",
+   "about": "Use Power Query to append monthly Excel files into a refreshable table, check changed headers, and keep backup copies out of the import.",
+   "url": "https://automatebasics.com/guides/combine-monthly-excel-files-from-a-folder-with-power-query"
+  },
+  {
+   "title": "Compare Two SOP Versions With AI and Verify What Changed",
+   "about": "Compare two SOP versions by using AI to sort wording edits from procedure changes, then check each finding against the documents before approving it.",
+   "url": "https://automatebasics.com/guides/compare-two-sop-versions-with-ai-and-verify-what-changed"
+  },
+  {
+   "title": "Compare Two Spreadsheets to Find Missing Records",
+   "about": "Match spreadsheet rows by a stable ID, flag records missing from either list, and check duplicates and name differences before acting.",
+   "url": "https://automatebasics.com/guides/compare-two-spreadsheets-to-find-missing-records"
+  },
+  {
+   "title": "Compare Vendor Proposals Against a Requirements Checklist",
+   "about": "Build a source-linked requirements table from vendor proposals, mark unanswered items unknown, and verify the evidence before choosing a supplier.",
+   "url": "https://automatebasics.com/guides/compare-vendor-proposals-against-a-requirements-checklist"
+  },
+  {
+   "title": "Connect Airtable to ChatGPT for Content Production",
+   "about": "Build a no-code Airtable and ChatGPT workflow that drafts, checks, and routes content without duplicate runs or uncontrolled AI output.",
+   "url": "https://automatebasics.com/guides/connect-airtable-to-chatgpt-for-content-production"
+  },
+  {
+   "title": "Copy a PDF Table Into Excel Without Repairing Every Column",
+   "about": "Use Excel’s PDF import for selectable tables, OCR for scans, and a row check against the PDF to catch shifted or missing values.",
+   "url": "https://automatebasics.com/guides/copy-a-pdf-table-into-excel-without-repairing-every-column"
+  },
+  {
+   "title": "Create a Shared Microsoft Bookings Page for Your Team",
+   "about": "Create a shared Microsoft Bookings page, assign staff and set availability so customers can book open times without seeing private calendars.",
+   "url": "https://automatebasics.com/guides/create-a-shared-microsoft-bookings-page-for-your-team"
+  },
+  {
+   "title": "Create an Asana Task From an Airtable Form Submission",
+   "about": "Create an Asana task from each new Airtable form request, map its owner and deadline, and keep edits or retries from making duplicates.",
+   "url": "https://automatebasics.com/guides/create-an-asana-task-from-an-airtable-form-submission"
+  },
+  {
+   "title": "Create Client Folders From New Airtable Records",
+   "about": "Create a client folder and standard Drive subfolders from an Airtable record, then save their links so retries can reuse what already exists.",
+   "url": "https://automatebasics.com/guides/create-client-folders-from-new-airtable-records"
+  },
+  {
+   "title": "Create Google Calendar Events From Google Form Responses",
+   "about": "Connect Google Forms to Google Calendar with a no-code automation, then check missing times, time zones and repeat submissions before sending invites.",
+   "url": "https://automatebasics.com/guides/create-google-calendar-events-from-google-form-responses"
+  },
+  {
+   "title": "Draft a Client Proposal From a Google Form Response",
+   "about": "Turn a Google Form response into a Google Docs proposal draft, with requested work clearly separated from scope and commitments you must approve.",
+   "url": "https://automatebasics.com/guides/draft-a-client-proposal-from-a-google-form-response"
+  },
+  {
+   "title": "Draft Customer Email Replies in Their Language With AI",
+   "about": "Use AI to draft a reply in the customer's language, keep product names and promises accurate, and have a person check it before sending.",
+   "url": "https://automatebasics.com/guides/draft-customer-email-replies-in-their-language-with-ai"
+  },
+  {
+   "title": "Email Task Owners When Google Sheets Deadlines Pass",
+   "about": "Check due dates and completion status in Google Sheets, email overdue task owners, and record each reminder so routine checks do not resend it.",
+   "url": "https://automatebasics.com/guides/email-task-owners-when-google-sheets-deadlines-pass"
+  },
+  {
+   "title": "Email to Notion: Auto-Create Tasks From Your Inbox (n8n Workflow)",
+   "about": "Turn a flagged email into a Notion task automatically: an n8n workflow uses AI to pull out the action item and due date and files it in your database.",
+   "url": "https://automatebasics.com/guides/email-to-notion-tasks"
+  },
+  {
+   "title": "Extract PDF Invoice Data Into a Spreadsheet Automatically (No Typing)",
+   "about": "One invoice: paste the PDF into ChatGPT or Claude. Every week: an n8n, Make or Power Automate flow fills Excel or Sheets. Then check totals and tax.",
+   "url": "https://automatebasics.com/guides/extract-pdf-invoice-data-to-spreadsheet-ai"
+  },
+  {
+   "title": "Fill a Google Docs Template From Google Sheets Rows",
+   "about": "Create one Google Doc per spreadsheet row using a template, with checks for blank fields, unique filenames and the right recipient.",
+   "url": "https://automatebasics.com/guides/fill-a-google-docs-template-from-google-sheets-rows"
+  },
+  {
+   "title": "Find an Old Work Email by Speaking to Gmail",
+   "about": "Ask a voice assistant to locate an old Gmail message if email access is available, or use the equivalent Gmail search when it is not.",
+   "url": "https://automatebasics.com/guides/find-an-old-work-email-by-speaking-to-gmail"
+  },
+  {
+   "title": "Freeze an Approved Google Doc and Keep an Editable Copy",
+   "about": "Name the approved version, limit edits to the original Google Doc, and make a separate working copy so later changes are not mistaken for approved text.",
+   "url": "https://automatebasics.com/guides/freeze-an-approved-google-doc-and-keep-an-editable-copy"
+  },
+  {
+   "title": "Generate Tailored Interview Questions from a Job Description with ChatGPT",
+   "about": "Paste a job description into ChatGPT and get a role-specific interview kit: the questions, the follow-ups and what a good answer looks like.",
+   "url": "https://automatebasics.com/guides/ai-interview-questions-from-jd"
+  },
+  {
+   "title": "Get a Slack Alert When a Supplier Availability Page Changes",
+   "about": "Monitor the availability part of a supplier page and send relevant changes to Slack without alerting your team about every page edit.",
+   "url": "https://automatebasics.com/guides/get-a-slack-alert-when-a-supplier-availability-page-changes"
+  },
+  {
+   "title": "Get a Slack Reminder for Unanswered Customer Messages",
+   "about": "Set a rule for what counts as answered, then check the full Slack thread before reminding your team about a customer message.",
+   "url": "https://automatebasics.com/guides/get-a-slack-reminder-for-unanswered-customer-messages"
+  },
+  {
+   "title": "Get a Weekly Slack Channel Digest With Source Links",
+   "about": "Build a weekly Slack digest that links to source messages, separates decisions from open questions, and arrives by email or in Slack.",
+   "url": "https://automatebasics.com/guides/get-a-weekly-slack-channel-digest-with-source-links"
+  },
+  {
+   "title": "Get an Airtable Alert When a Project Record Goes Stale",
+   "about": "Use a last-modified field and a scheduled Airtable automation to notify the project owner once when a record has gone without an update.",
+   "url": "https://automatebasics.com/guides/get-an-airtable-alert-when-a-project-record-goes-stale"
+  },
+  {
+   "title": "Get Low-Stock Restock Alerts Automatically with Shopify Flow (No Code)",
+   "about": "Get pinged the moment a product drops below your threshold, so you reorder before you sell out: a no-code Shopify Flow that watches stock for you.",
+   "url": "https://automatebasics.com/guides/shopify-flow-low-stock-restock-alerts"
+  },
+  {
+   "title": "Give a Teammate Gmail Access Without Sharing Your Password",
+   "about": "Use Gmail delegation for one person's inbox or a Google Group for a team address. Choose the right setup and keep passwords private.",
+   "url": "https://automatebasics.com/guides/give-a-teammate-gmail-access-without-sharing-your-password"
+  },
+  {
+   "title": "How AI Sees Your Company: Fix Wrong or Confused Answers",
+   "about": "When ChatGPT or Gemini describes your company wrongly or confuses it with another, trace the error to its source and fix the facts AI reads about you.",
+   "url": "https://automatebasics.com/guides/how-ai-sees-your-company-brand-a-practical-check"
+  },
+  {
+   "title": "How to Auto-Categorize Support Emails with AI (n8n Tutorial)",
+   "about": "Every support email sorted, labelled and prioritised before you open your inbox: an n8n workflow where Claude classifies each one and drafts a reply.",
+   "url": "https://automatebasics.com/guides/auto-categorize-support-emails-ai"
+  },
+  {
+   "title": "How to Auto-Draft Sales Follow-Up Emails with n8n + Claude (No Code)",
+   "about": "Never let a lead go cold: an n8n workflow spots leads due a follow-up and has Claude draft a personal email in your tone, waiting in your drafts.",
+   "url": "https://automatebasics.com/guides/auto-draft-sales-follow-up-emails"
+  },
+  {
+   "title": "How to Auto-Reply to WhatsApp Messages With AI",
+   "about": "Set up an AI auto-reply for WhatsApp with Make and OpenAI to answer approved questions, check replies, and hand off sensitive messages to a human.",
+   "url": "https://automatebasics.com/guides/how-to-auto-reply-to-whatsapp-messages-with-ai"
+  },
+  {
+   "title": "How to Automate a Weekly Marketing Report with GA4 + AI (n8n)",
+   "about": "Get your weekly marketing report written for you: n8n pulls your Google Analytics numbers, Claude summarises them, and the report lands by email.",
+   "url": "https://automatebasics.com/guides/automate-weekly-marketing-report"
+  },
+  {
+   "title": "How to Automate Invoice Reminders for Freelancers (n8n + Gmail + Sheets)",
+   "about": "Get paid without chasing: an n8n workflow tracks unpaid invoices in Google Sheets and sends polite, escalating Gmail reminders until the client pays.",
+   "url": "https://automatebasics.com/guides/automate-invoice-reminders-freelancers"
+  },
+  {
+   "title": "How to Find Common Themes in Survey Responses With AI",
+   "about": "Group survey comments into themes, keep representative quotes, and check each AI finding against the original responses.",
+   "url": "https://automatebasics.com/guides/how-to-find-common-themes-in-survey-responses-with-ai"
+  },
+  {
+   "title": "How to Get Cited by AI: llms.txt, Schema, and FAQ Pages That Work",
+   "about": "The three on-page pieces this guide covers, an llms.txt file, schema markup and FAQ pages: what each one is, what it is for, and how to add it.",
+   "url": "https://automatebasics.com/guides/get-cited-by-ai-llms-txt-schema-faq"
+  },
+  {
+   "title": "How to Improve Your AI Chatbot Visibility This Week",
+   "about": "Improve AI chatbot visibility with 8 practical fixes for clearer answers, stronger evidence, better access and repeatable testing.",
+   "url": "https://automatebasics.com/guides/how-to-improve-your-ai-chatbot-visibility-this-week"
+  },
+  {
+   "title": "How to Improve Your Brand's Visibility in AI: A 7-Step Checklist",
+   "about": "A do-it-this-week checklist to get your brand named by ChatGPT, Perplexity, Gemini and Google AI Overviews, from a baseline to tracking the change.",
+   "url": "https://automatebasics.com/guides/how-to-improve-brand-visibility-in-ai"
+  },
+  {
+   "title": "How to Protect ChatGPT Chats on a Shared Computer",
+   "about": "You cannot lock one ChatGPT chat with a password. See what hiding a chat changes, what remains accessible, and when to sign out.",
+   "url": "https://automatebasics.com/guides/how-to-protect-chatgpt-chats-on-a-shared-computer"
+  },
+  {
+   "title": "How to Remove Sensitive Details Before Sharing with ChatGPT",
+   "about": "Remove names, identifying clues and hidden content before sharing a document with ChatGPT, then check whether the task needs the original at all.",
+   "url": "https://automatebasics.com/guides/how-to-remove-sensitive-details-before-sharing-with-chatgpt"
+  },
+  {
+   "title": "How to Repurpose One Long Video Into a Week of Short Clips With AI",
+   "about": "Turn one long video into 5-8 short clips. Transcribe it, ask AI for the best standalone moments with timestamps, hooks, and captions, then cut them.",
+   "url": "https://automatebasics.com/guides/repurpose-long-video-into-shorts-ai"
+  },
+  {
+   "title": "How to Schedule Instagram and LinkedIn Carousel Posts",
+   "about": "Schedule Instagram and LinkedIn carousels with no code: the free routes in each app, slide limits per network, and nine schedulers that publish them.",
+   "url": "https://automatebasics.com/guides/how-to-schedule-carousel-posts"
+  },
+  {
+   "title": "How to Send a Google Docs Agreement for Signature",
+   "about": "Send a Google Docs agreement through an eligible Google signing feature or a PDF signing service, then check the fields and final copy.",
+   "url": "https://automatebasics.com/guides/how-to-send-a-google-docs-agreement-for-signature"
+  },
+  {
+   "title": "How to Set Up an AI Chatbot to Answer Customer Questions on Your Website",
+   "about": "A beginner path to a support chatbot that answers from your own help docs, hands off to a human when stuck, and lives on your site. Tool-agnostic, no code.",
+   "url": "https://automatebasics.com/guides/ai-chatbot-customer-support-website-setup"
+  },
+  {
+   "title": "How to Stop ChatGPT Hallucinations and Fact-Check Its Answers",
+   "about": "Get answers you can trust from ChatGPT: ground it in your sources, prompt to reduce hallucinations, and check every name, number, quote and citation.",
+   "url": "https://automatebasics.com/guides/stop-chatgpt-making-things-up-fact-check"
+  },
+  {
+   "title": "How to Transcribe and Summarise Voice Notes Automatically",
+   "about": "Turn phone voice notes into searchable transcripts and useful summaries with no code, using a dependable workflow and checks for common errors.",
+   "url": "https://automatebasics.com/guides/how-to-transcribe-and-summarise-voice-notes-automatically"
+  },
+  {
+   "title": "How to Translate a PowerPoint Without Breaking Its Layout",
+   "about": "Translate PowerPoint slides with AI, then check text boxes, charts, speaker notes, and brand terms before sharing the finished deck.",
+   "url": "https://automatebasics.com/guides/how-to-translate-a-powerpoint-without-breaking-its-layout"
+  },
+  {
+   "title": "How to Turn a Voice Note Into a LinkedIn Post Automatically (n8n + Claude)",
+   "about": "Talk for 30 seconds, get a polished LinkedIn post: an n8n workflow transcribes your voice note and Claude writes it up in your own voice.",
+   "url": "https://automatebasics.com/guides/voice-note-to-linkedin-post"
+  },
+  {
+   "title": "How to Turn One Blog Post Into Five AI Social Posts",
+   "about": "Use ChatGPT or Claude to turn one blog post into five platform-ready social posts without losing accuracy, voice, or the original point.",
+   "url": "https://automatebasics.com/guides/how-to-turn-one-blog-post-into-five-ai-social-posts"
+  },
+  {
+   "title": "How to Use AI to Research Leads and Personalize Cold Emails (Beginner Guide)",
+   "about": "Use ChatGPT, Claude, or Gemini with web search to research a prospect, find one real detail, and write a short personalized cold email that gets replies.",
+   "url": "https://automatebasics.com/guides/ai-cold-email-research-leads-beginners"
+  },
+  {
+   "title": "How to Use ChatGPT for Meeting Notes and a Follow-Up Email",
+   "about": "Turn a meeting recording or transcript into a five-bullet summary, decisions with owners and a follow-up email, plus a check for decisions AI invented.",
+   "url": "https://automatebasics.com/guides/chatgpt-record-mode-meeting-notes-follow-up"
+  },
+  {
+   "title": "How to Use Copilot in Excel to Write and Fix Formulas",
+   "about": "Use Copilot in Excel to write a formula from plain English, add it as a column, explain or fix a broken one, and see which plans include it.",
+   "url": "https://automatebasics.com/guides/use-copilot-to-write-and-fix-an-excel-formula"
+  },
+  {
+   "title": "How to Use Gemini to Write and Fix Google Sheets Formulas",
+   "about": "Write and fix Google Sheets formulas with Gemini: the Ask Gemini panel, the Ctrl+Alt+G shortcut, prompts with real ranges, and the plans that include it.",
+   "url": "https://automatebasics.com/guides/use-gemini-to-write-and-fix-a-google-sheets-formula"
+  },
+  {
+   "title": "How to Write a Good ChatGPT Prompt for Work: The 4-Part Formula",
+   "about": "Get usable drafts from ChatGPT on the first try with a four-part prompt formula for work: role, task, context and format. No more generic answers.",
+   "url": "https://automatebasics.com/guides/how-to-write-chatgpt-prompts-for-work"
+  },
+  {
+   "title": "How to Write Product Image Alt Text in Batches With AI",
+   "about": "Draft product image alt text in a spreadsheet with AI, then check each description against the image before adding it to your store.",
+   "url": "https://automatebasics.com/guides/how-to-write-product-image-alt-text-in-batches-with-ai"
+  },
+  {
+   "title": "Import Contacts Into HubSpot Without Changing Existing Records",
+   "about": "Use a create-only import or remove existing contacts from your CSV, then test email matching and field mapping before uploading the rest.",
+   "url": "https://automatebasics.com/guides/import-contacts-into-hubspot-without-changing-existing-records"
+  },
+  {
+   "title": "Let People Edit Google Form Answers Without Submitting Twice",
+   "about": "Enable response editing, give each respondent their own edit link, and check the Form and linked Sheet before relying on the change.",
+   "url": "https://automatebasics.com/guides/let-people-edit-google-form-answers-without-submitting-twice"
+  },
+  {
+   "title": "Make a Box and Whisker Chart in Google Sheets",
+   "about": "Use a candlestick chart to compare survey score spreads in Google Sheets, and add a scatter chart when individual outliers matter.",
+   "url": "https://automatebasics.com/guides/make-a-box-and-whisker-chart-in-google-sheets"
+  },
+  {
+   "title": "Make a Google Sheets Dropdown Grow With Your List",
+   "about": "Use a dropdown from an open-ended source range so new items appear when you add them to your list, without editing the rule each time.",
+   "url": "https://automatebasics.com/guides/make-a-google-sheets-dropdown-grow-with-your-list"
+  },
+  {
+   "title": "Make a Microsoft Forms Feedback Survey Anonymous",
+   "about": "Set Microsoft Forms to avoid recording names, then test a real submission and response export before sharing your feedback survey.",
+   "url": "https://automatebasics.com/guides/make-a-microsoft-forms-feedback-survey-anonymous"
+  },
+  {
+   "title": "Make a Microsoft Forms Quiz That Grades Itself",
+   "about": "Create a Microsoft Forms quiz with answer keys, points and feedback, then check which responses need review before releasing scores.",
+   "url": "https://automatebasics.com/guides/make-a-microsoft-forms-quiz-that-grades-itself"
+  },
+  {
+   "title": "Make a PDF Automatically From Each Google Form Response",
+   "about": "Connect Google Forms to a document template, fill blank answers safely, and save a PDF for each new response without code.",
+   "url": "https://automatebasics.com/guides/make-a-pdf-automatically-from-each-google-form-response"
+  },
+  {
+   "title": "Make a QR Code Check-In Form for a Work Event",
+   "about": "Connect a QR code to a short Google Form, review repeat check-ins in Google Sheets, and collect only the details your event needs.",
+   "url": "https://automatebasics.com/guides/make-a-qr-code-check-in-form-for-a-work-event"
+  },
+  {
+   "title": "Make a Scanned PDF Searchable Without Retyping",
+   "about": "Use OCR to make a scanned PDF searchable without retyping it. Compare simple routes, then check names, dates and page order before sharing.",
+   "url": "https://automatebasics.com/guides/make-a-scanned-pdf-searchable-without-retyping"
+  },
+  {
+   "title": "Make an Interactive Chart From Spreadsheet Data in ChatGPT",
+   "about": "Upload a CSV or Excel file, tell ChatGPT which columns to chart, and check dates, totals and missing values before using the result.",
+   "url": "https://automatebasics.com/guides/make-an-interactive-chart-from-spreadsheet-data-in-chatgpt"
+  },
+  {
+   "title": "Make Event Name Badges in Bulk From a Spreadsheet in Canva",
+   "about": "Use a spreadsheet and Canva Bulk Create to generate event badges, check missing fields and long names, and print a proof before the full batch.",
+   "url": "https://automatebasics.com/guides/make-event-name-badges-in-bulk-from-a-spreadsheet-in-canva"
+  },
+  {
+   "title": "Make Workspace Studio Check Drive Before Replying",
+   "about": "Search the relevant Drive file before drafting a Gmail reply, cite what supports the answer, and send weak matches to a person.",
+   "url": "https://automatebasics.com/guides/make-workspace-studio-check-drive-before-replying"
+  },
+  {
+   "title": "Merge Duplicate HubSpot Companies Without Losing Deals",
+   "about": "Choose the company record to keep, record its deals and contacts, merge the duplicate in HubSpot, then check every association.",
+   "url": "https://automatebasics.com/guides/merge-duplicate-hubspot-companies-without-losing-deals"
+  },
+  {
+   "title": "Notify Shopify Customers When an Order Is Ready for Pickup",
+   "about": "Mark a pickup order ready in Shopify to send its pickup notice, or use an automation that checks readiness and prevents duplicate emails.",
+   "url": "https://automatebasics.com/guides/notify-shopify-customers-when-an-order-is-ready-for-pickup"
+  },
+  {
+   "title": "Notify Your Team in Slack When a Calendly Booking Is Canceled",
+   "about": "Connect Calendly to Slack, filter out reschedules, and test each booking change so your team receives the right alert.",
+   "url": "https://automatebasics.com/guides/notify-your-team-in-slack-when-a-calendly-booking-is-canceled"
+  },
+  {
+   "title": "Organize Google Forms Uploads by Client and Response",
+   "about": "Match each uploaded file to its form response, then sort it into a client folder without relying on filenames or mixing submissions.",
+   "url": "https://automatebasics.com/guides/organize-google-forms-uploads-by-client-and-response"
+  },
+  {
+   "title": "Permanently Redact Personal Information From a PDF",
+   "about": "Use a PDF redaction tool to remove personal details before sending a file, then check that the information cannot be found or copied.",
+   "url": "https://automatebasics.com/guides/permanently-redact-personal-information-from-a-pdf"
+  },
+  {
+   "title": "Plan a Month of Social Media Posts in One ChatGPT Chat (Content Calendar)",
+   "about": "Turn three or four themes into a full month of post ideas and hooks in one ChatGPT chat, laid out as a table you paste straight into Sheets or Notion.",
+   "url": "https://automatebasics.com/guides/chatgpt-month-social-media-content-calendar"
+  },
+  {
+   "title": "Prepare an Out-of-Office Handover From Your Inbox and Calendar",
+   "about": "Build a checkable handover from email and calendar, separating confirmed deadlines from suggested priorities before sharing it.",
+   "url": "https://automatebasics.com/guides/prepare-an-out-of-office-handover-from-your-inbox-and-calendar"
+  },
+  {
+   "title": "Remove Duplicate Contacts in Google Sheets Without Losing Notes",
+   "about": "Keep the most useful contact row, move unique notes into it, and review matching names before removing duplicates in Google Sheets.",
+   "url": "https://automatebasics.com/guides/remove-duplicate-contacts-in-google-sheets-without-losing-notes"
+  },
+  {
+   "title": "Review AI Captions Before Sharing a Training Video",
+   "about": "Generate captions for a training video, then check names, product terms and timing against the audio before exporting a caption file.",
+   "url": "https://automatebasics.com/guides/review-ai-captions-before-sharing-a-training-video"
+  },
+  {
+   "title": "Route Form Leads to Your CRM Automatically, No Code",
+   "about": "Send new form leads to your CRM with Zapier or Make, prevent duplicates, add AI qualification, and test the workflow before launch.",
+   "url": "https://automatebasics.com/guides/route-form-leads-to-your-crm-automatically-no-code"
+  },
+  {
+   "title": "Save Zoom Cloud Recordings to Google Drive Automatically",
+   "about": "Use a no-code workflow to copy new Zoom cloud recordings into Google Drive, then check access, file size and repeat runs before relying on the folder.",
+   "url": "https://automatebasics.com/guides/save-zoom-cloud-recordings-to-google-drive-automatically"
+  },
+  {
+   "title": "Scrape a Web Page and Summarise It with Claude",
+   "about": "Build a no-code Make workflow that fetches a web page, cleans its content, sends it to Claude, and delivers a reliable summary.",
+   "url": "https://automatebasics.com/guides/scrape-a-web-page-and-summarise-it-with-claude"
+  },
+  {
+   "title": "Screen Job Applications Faster with AI (Beginner Guide)",
+   "about": "Turn a flood of applications into a ranked shortlist: Claude summarises each candidate against your must-haves and flags the best fits. You decide.",
+   "url": "https://automatebasics.com/guides/screen-job-applications-ai-airtable"
+  },
+  {
+   "title": "Send a Feedback Survey After a Calendly Meeting Ends",
+   "about": "Send a feedback form after the scheduled meeting end time, not when someone books. Choose a simple workflow and check cancellations before sending.",
+   "url": "https://automatebasics.com/guides/send-a-feedback-survey-after-a-calendly-meeting-ends"
+  },
+  {
+   "title": "Send a Personalized Email After a Google Form Submission",
+   "about": "Use form answers in a custom confirmation email, then track each submission so an edited response does not trigger a duplicate.",
+   "url": "https://automatebasics.com/guides/send-a-personalized-email-after-a-google-form-submission"
+  },
+  {
+   "title": "Send a Slack Alert Only for Google Form Answers That Need Follow-Up",
+   "about": "Add a filter between a Google Form submission and a Slack message so only answers that need follow-up reach your channel.",
+   "url": "https://automatebasics.com/guides/send-a-slack-alert-only-for-google-form-answers-that-need-follow-up"
+  },
+  {
+   "title": "Send Automatic Reminders From a SharePoint List With Power Automate",
+   "about": "Stop chasing overdue items: a scheduled Power Automate flow checks a SharePoint list each morning and messages the person responsible, not the team.",
+   "url": "https://automatebasics.com/guides/power-automate-reminders-from-a-sharepoint-list"
+  },
+  {
+   "title": "Send Calendly Appointment Reminders Automatically",
+   "about": "Use Calendly’s built-in reminders for ordinary bookings, and add an automation only when reminders depend on information outside Calendly.",
+   "url": "https://automatebasics.com/guides/send-calendly-appointment-reminders-automatically"
+  },
+  {
+   "title": "Send Google Form Responses to the Right Team Member",
+   "about": "Route Google Form responses by answer, email the right teammate, and send unexpected answers to a default owner for review.",
+   "url": "https://automatebasics.com/guides/send-google-form-responses-to-the-right-team-member"
+  },
+  {
+   "title": "Send Microsoft Forms Responses to a SharePoint List Automatically",
+   "about": "Send every Microsoft Forms response into a SharePoint list with Power Automate, tell the right person, and handle question types that don't map.",
+   "url": "https://automatebasics.com/guides/microsoft-forms-to-sharepoint-list-automatically"
+  },
+  {
+   "title": "Send Personalized Gmail Emails From Google Sheets Safely",
+   "about": "Use a Google Sheet to personalize Gmail messages, test the merge before sending, and decide when an ordinary draft is safer.",
+   "url": "https://automatebasics.com/guides/send-personalized-gmail-emails-from-google-sheets-safely"
+  },
+  {
+   "title": "Separate Audio From a Video Clip in Google Vids",
+   "about": "Detach a Google Vids clip's audio when sound needs its own edits, then reposition or replace it while checking for overlap and sync.",
+   "url": "https://automatebasics.com/guides/separate-audio-from-a-video-clip-in-google-vids"
+  },
+  {
+   "title": "Set Up a Weekly Team Checklist With Asana Recurring Tasks",
+   "about": "Use an Asana recurring task for a weekly checklist, check how subtasks carry over, and choose a project template when the process needs a fresh project.",
+   "url": "https://automatebasics.com/guides/set-up-a-weekly-team-checklist-with-asana-recurring-tasks"
+  },
+  {
+   "title": "Share Airtable Project Status Without Exposing Other Clients",
+   "about": "Create a client-specific Airtable view, share the view rather than the base, and test its link from an account with no existing access.",
+   "url": "https://automatebasics.com/guides/share-airtable-project-status-without-exposing-other-clients"
+  },
+  {
+   "title": "Share an Outlook Inbox Without Duplicate Replies",
+   "about": "Use a shared mailbox, visible sent replies and owner folders so two people can handle customer email without both answering the same message.",
+   "url": "https://automatebasics.com/guides/share-an-outlook-inbox-without-duplicate-replies"
+  },
+  {
+   "title": "Should You Pay for an AI Visibility Tracking Tool?",
+   "about": "Manual tracking is enough for a small test; paid tools earn their cost when you need repeatable prompts, source tracking, and trend alerts.",
+   "url": "https://automatebasics.com/guides/should-you-pay-for-an-ai-visibility-tracking-tool"
+  },
+  {
+   "title": "Show Different Google Forms Questions Based on an Answer",
+   "about": "Use sections and answer-based routing in Google Forms to give each client relevant intake questions, then test every path before sharing.",
+   "url": "https://automatebasics.com/guides/show-different-google-forms-questions-based-on-an-answer"
+  },
+  {
+   "title": "Speed Up One Clip in Google Vids Without Rushing Narration",
+   "about": "Select the demonstration clip, change its playback speed, then check scene timing so narration and the rest of the video stay at normal speed.",
+   "url": "https://automatebasics.com/guides/speed-up-one-clip-in-google-vids-without-rushing-narration"
+  },
+  {
+   "title": "Split a Batch PDF Into One File per Customer Without Code",
+   "about": "Split a batch PDF by verified customer boundaries, then check page assignments and filenames before sharing the separate files.",
+   "url": "https://automatebasics.com/guides/split-a-batch-pdf-into-one-file-per-customer-without-code"
+  },
+  {
+   "title": "Stop a Google Form After a Set Number of Responses",
+   "about": "Set a response cap in Google Forms when available, close the form manually for small jobs, or use an add-on when you need extra rules.",
+   "url": "https://automatebasics.com/guides/stop-a-google-form-after-a-set-number-of-responses"
+  },
+  {
+   "title": "Stop a Zapier Automation When a Form Field Is Blank",
+   "about": "Add a filter after the form trigger to stop emails and record creation when required answers are blank, while allowing optional answers to be omitted.",
+   "url": "https://automatebasics.com/guides/stop-a-zapier-automation-when-a-form-field-is-blank"
+  },
+  {
+   "title": "Stop Zapier From Creating Duplicate CRM Contacts",
+   "about": "Use an email-based find-or-create step to update existing CRM contacts, create new ones and hold records with no email for review.",
+   "url": "https://automatebasics.com/guides/stop-zapier-from-creating-duplicate-crm-contacts"
+  },
+  {
+   "title": "Summarize a Slack Thread Into a Reliable Decision Log",
+   "about": "Turn a Slack conversation into a decision log by checking each AI-extracted decision against the thread and keeping proposals and open questions separate.",
+   "url": "https://automatebasics.com/guides/summarize-a-slack-thread-into-a-reliable-decision-log"
+  },
+  {
+   "title": "Sync Airtable Deadlines to Google Calendar Without Duplicates",
+   "about": "Sync Airtable deadlines by saving each Google Calendar event ID, then use it to update or remove the event when the project record changes.",
+   "url": "https://automatebasics.com/guides/sync-airtable-deadlines-to-google-calendar-without-duplicates"
+  },
+  {
+   "title": "Tag Shopify Customers Based on Products They Ordered",
+   "about": "Use Shopify Flow to tag customers when a qualifying order is fulfilled, check for cancellation, and understand when a tag needs review.",
+   "url": "https://automatebasics.com/guides/tag-shopify-customers-based-on-products-they-ordered"
+  },
+  {
+   "title": "Tag Shopify Orders for the Right Fulfillment Team",
+   "about": "Tag Shopify orders by product or delivery choice, then flag mixed orders so the right team can check them before fulfillment.",
+   "url": "https://automatebasics.com/guides/tag-shopify-orders-for-the-right-fulfillment-team"
+  },
+  {
+   "title": "Take Offline AI Notes for an In-Person Meeting on a Mac",
+   "about": "Record a meeting with consent, transcribe it locally on your Mac, and check names and decisions against the audio before sharing notes.",
+   "url": "https://automatebasics.com/guides/take-offline-ai-notes-for-an-in-person-meeting-on-a-mac"
+  },
+  {
+   "title": "Translate Customer Help Pages With AI Without Losing Key Terms",
+   "about": "Use a short glossary and side-by-side review to translate customer help pages with AI while checking product names, buttons and instructions.",
+   "url": "https://automatebasics.com/guides/translate-customer-help-pages-with-ai-without-losing-key-terms"
+  },
+  {
+   "title": "Triage a Flooded Inbox with AI, and Draft Replies (You Always Hit Send)",
+   "about": "Turn a wall of unread email into a ranked list and reply drafts in your tone: paste threads into an AI chat, and nothing sends until you click send.",
+   "url": "https://automatebasics.com/guides/outlook-inbox-triage-copilot"
+  },
+  {
+   "title": "Turn a Chosen Slack Message Into an Asana Task",
+   "about": "Use a deliberate Slack reaction to create an Asana task, keep the message link, and avoid making another task when the reaction is added again.",
+   "url": "https://automatebasics.com/guides/turn-a-chosen-slack-message-into-an-asana-task"
+  },
+  {
+   "title": "Turn a Slack Message Into a Trello Card With an Emoji",
+   "about": "Use a Slack emoji reaction to create a Trello card, then prevent repeat cards when coworkers react to the same message.",
+   "url": "https://automatebasics.com/guides/turn-a-slack-message-into-a-trello-card-with-an-emoji"
+  },
+  {
+   "title": "Turn a Webinar Recording Into a Timestamped FAQ",
+   "about": "Turn a webinar recording into an FAQ by drafting from its transcript, checking every answer against the video, and linking to the supporting moment.",
+   "url": "https://automatebasics.com/guides/turn-a-webinar-recording-into-a-timestamped-faq"
+  },
+  {
+   "title": "Turn a Word Document Into PowerPoint Slides With Copilot",
+   "about": "Use Copilot in PowerPoint to draft slides from a Word file, then check the source for missing conditions, changed claims and unsuitable visuals.",
+   "url": "https://automatebasics.com/guides/turn-a-word-document-into-powerpoint-slides-with-copilot"
+  },
+  {
+   "title": "Turn a Written SOP Into a Training Video With Google Vids",
+   "about": "Turn a written SOP into a Google Vids training video by recording real software steps and using simple scenes for context and reminders.",
+   "url": "https://automatebasics.com/guides/turn-a-written-sop-into-a-training-video-with-google-vids"
+  },
+  {
+   "title": "Turn Gmail Emails into Notion Tasks Automatically",
+   "about": "Build a no-code Gmail to Notion workflow that uses AI to extract tasks, set safe due dates, prevent duplicates, and route uncertain emails for review.",
+   "url": "https://automatebasics.com/guides/turn-gmail-emails-into-notion-tasks-automatically"
+  },
+  {
+   "title": "Turn Labeled Gmail Messages Into Calendar Event Drafts",
+   "about": "Use a Gmail label to collect meeting emails, extract dates and time zones into a review queue, and create Google Calendar events only after approval.",
+   "url": "https://automatebasics.com/guides/turn-labeled-gmail-messages-into-calendar-event-drafts"
+  },
+  {
+   "title": "Turn Messy Meeting Notes into Clear Action Items with AI",
+   "about": "Leave every meeting with decisions, owners and next steps: paste your raw notes into an AI chat and get back a clear list of who does what next.",
+   "url": "https://automatebasics.com/guides/notion-ai-meeting-notes-action-items"
+  },
+  {
+   "title": "Turn Messy Notes Into a Clean SOP With AI (Beginner Guide)",
+   "about": "Take rough bullet notes or screenshots of how a task gets done and have ChatGPT or Claude turn them into a numbered, repeatable SOP with roles and checks.",
+   "url": "https://automatebasics.com/guides/messy-notes-to-sop-with-ai"
+  },
+  {
+   "title": "Turn Open Browser Tabs Into a Sourced ChatGPT Brief",
+   "about": "Turn open tabs into a research brief with ChatGPT, then check that each factual claim points to the page that supports it.",
+   "url": "https://automatebasics.com/guides/turn-open-browser-tabs-into-a-sourced-chatgpt-brief"
+  },
+  {
+   "title": "Turn Scanned Sign-In Sheets Into a Verified Spreadsheet",
+   "about": "Use a clear scan and an AI transcription tool to move sign-in sheets into a spreadsheet, then check uncertain names, blanks and repeats against the paper.",
+   "url": "https://automatebasics.com/guides/turn-scanned-sign-in-sheets-into-a-verified-spreadsheet"
+  },
+  {
+   "title": "Turn Support Tickets Into a Draft Help Center Article",
+   "about": "Group repeated ticket questions, remove customer details, and use AI to draft an article you can check against current product instructions.",
+   "url": "https://automatebasics.com/guides/turn-support-tickets-into-a-draft-help-center-article"
+  },
+  {
+   "title": "Update Overdue Notion Tasks Without Changing the Wrong Ones",
+   "about": "Scope the agent to one project, review proposed changes against live task records, and apply only the overdue updates you approve.",
+   "url": "https://automatebasics.com/guides/update-overdue-notion-tasks-without-changing-the-wrong-ones"
+  },
+  {
+   "title": "Use AI to Draft On-Brand Replies to Customer Reviews (Good and Bad)",
+   "about": "A reusable ChatGPT or Claude prompt that drafts calm, on-brand replies to good and angry reviews. You set the tone, it drafts, you approve before posting.",
+   "url": "https://automatebasics.com/guides/ai-draft-replies-customer-reviews-ecommerce"
+  },
+  {
+   "title": "Use ChatGPT to Categorize Expenses and Tidy Your Books as a Freelancer",
+   "about": "Export your transactions to CSV and let ChatGPT or Claude sort them into your categories, flag odd charges, and total spend by month. Nothing to install.",
+   "url": "https://automatebasics.com/guides/chatgpt-bookkeeping-categorize-expenses-freelancer"
+  },
+  {
+   "title": "Use ChatGPT to Write and Fix an Excel Formula",
+   "about": "Give ChatGPT your column layout and desired result, then check its Excel formula against a small sample and fix wrong ranges or text values.",
+   "url": "https://automatebasics.com/guides/use-chatgpt-to-write-and-fix-an-excel-formula"
+  },
+  {
+   "title": "Use Google Meet Speech Translation in a Work Meeting",
+   "about": "Check whether Meet offers translated speech, choose meeting languages, and confirm important decisions in writing when a translation is unclear.",
+   "url": "https://automatebasics.com/guides/use-google-meet-speech-translation-in-a-work-meeting"
+  },
+  {
+   "title": "Voice Note → LinkedIn Post with Apple Shortcuts + ChatGPT (No Install, No Server)",
+   "about": "Turn a 30-second voice note into a LinkedIn post on your iPhone or Mac: a free Apple Shortcut transcribes it and AI rewrites it. Nothing to install.",
+   "url": "https://automatebasics.com/guides/voice-note-to-linkedin-apple-shortcuts"
+  },
+  {
+   "title": "What AI Visibility Trends Can You Automate in Reports?",
+   "about": "Track answer presence, citations, competitor mentions, source changes and prompt-level movement in repeatable AI visibility reports.",
+   "url": "https://automatebasics.com/guides/what-ai-visibility-trends-can-you-automate-in-reports"
+  },
+  {
+   "title": "What Does “Automate All the Things” Mean in AI?",
+   "about": "Automate all the things means letting AI handle repeatable work while people approve decisions, exceptions, and irreversible actions.",
+   "url": "https://automatebasics.com/guides/what-does-automate-all-the-things-mean-in-ai"
+  },
+  {
+   "title": "What Is n8n? A Beginner's Guide (+ Your First AI Workflow)",
+   "about": "Learn n8n in plain English: what it is, the four ideas you need, cloud vs self-hosted, and a first workflow that emails you an AI news briefing daily.",
+   "url": "https://automatebasics.com/guides/n8n-basics-beginners-guide"
+  },
+  {
+   "title": "Write Product Descriptions in Bulk with ChatGPT and Google Sheets",
+   "about": "Turn a sheet of bare product specs into consistent, on-brand descriptions for dozens of products at once with ChatGPT, instead of writing each by hand.",
+   "url": "https://automatebasics.com/guides/chatgpt-product-descriptions-bulk-sheets"
+  },
+  {
+   "title": "Your Brand Isn't Showing Up in ChatGPT: Why, and How to Fix It",
+   "about": "Find which of four fixable reasons keeps ChatGPT from naming your business: thin content, no third-party mentions, a stale cut-off or missing structure.",
+   "url": "https://automatebasics.com/guides/brand-not-showing-in-chatgpt-fix"
+  }
+ ]
+}
